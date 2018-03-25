@@ -1,0 +1,14 @@
+*.exe
+*.o
+*.xml
+*.ld
+
+CMSIS/
+startup/
+StdPeriph_Driver/
+Utilities/
+.cproject
+.project
+inc/stm32f4xx_it.h
+src/syscalls.c
+src/system_stm32f4xx.c
