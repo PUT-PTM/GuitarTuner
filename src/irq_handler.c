@@ -5,4 +5,10 @@
  *      Author: st-wasik
  */
 
+#include "irq_handler.h"
+
+void ADC_IRQHandler(void)
+{
+	//FFT
+}
 
