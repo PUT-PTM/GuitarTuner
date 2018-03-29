@@ -13,19 +13,19 @@ Supervisor: Marek Kraft/Michał Fularz/Tomasz Mańkowski/Adam Bondyra
 ## 4.How to run
 ### 4.1 Wire Connections 
 **STM32F4 <-----> LED Display**
-*PB0 <-----> a 
-*PB1 <-----> b
-*PB2 <-----> c
-*PB4 <-----> d
-*PB5 <-----> e
-*PB7 <-----> f
-*PB8 <-----> g
-*PB11 <-----> h
-*PB12 <-----> 1
-*PB13 <-----> 2
-*PB14 <-----> 3
-*PB15 <-----> 4
-*3.3V <-----> VCC
+* PB0 <-----> a <br />
+* PB1 <-----> b <br />
+* PB2 <-----> c <br />
+* PB4 <-----> d <br />
+* PB5 <-----> e <br /> 
+* PB7 <-----> f <br />
+* PB8 <-----> g <br />
+* PB11 <-----> h <br />
+* PB12 <-----> 1 <br />
+* PB13 <-----> 2 <br />
+* PB14 <-----> 3 <br />
+* PB15 <-----> 4 <br />
+* 3.3V <-----> VCC <br />
 
 ## 5.How to compile
 
