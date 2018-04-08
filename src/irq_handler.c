@@ -5,10 +5,15 @@
  *      Author: st-wasik
  */
 
-#include "irq_handler.h"
+#include "../inc/irq_handler.h"
+#include "../inc/display.h"
 
 void ADC_IRQHandler(void)
 {
 	//FFT
+
+	//test:
+	char temp[4] = {'a','b','c','d'};
+	set_screen(temp);
 }
 

@@ -27,7 +27,7 @@ void GPIO_init()
 	 *  | | f b
 	 *   -   g
 	 *  | | e c
-	 *   -   d
+	 *   - . d h
 	 */
 
 
@@ -40,7 +40,7 @@ void GPIO_init()
  	GPIO_Pin_5|  //e
 	GPIO_Pin_7|  //f
 	GPIO_Pin_8|  //g
-	GPIO_Pin_11|
+	GPIO_Pin_11| //h
 	//wybor cyfry
 	GPIO_Pin_12 | //1
 	GPIO_Pin_13 | //2
@@ -56,6 +56,7 @@ void GPIO_init()
 void ADC_init()
 {
 	// ADC input is on PA1
+
 	// zegar dla portu GPIO z którego wykorzystany zostanie pin jako wejście ADC (PA1)
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA , ENABLE);
 

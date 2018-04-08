@@ -11,12 +11,14 @@
 
 #include "stm32f4xx.h"
 #include "stm32f4_discovery.h"
+
 #include "init.h"
 #include "display.h"
 
-
-
 int main(void)
 {
-	for(;;);
+	for(;;)
+	{
+		display_update();
+	}
 }
