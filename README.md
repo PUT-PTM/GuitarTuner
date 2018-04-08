@@ -1,6 +1,6 @@
 # GuitarTuner
 
-## <Work in progress>
+## Work in progress
 
 The project was conducted during the Microprocessor Lab course held by the Institute of Control and Information Engineering, Poznan University of Technology.
 
@@ -18,7 +18,7 @@ LED Dispaly and connection wires are also needed.
 
 ## 4.How to run
 ### 4.1 Wire Connections 
-*** Connect pins as follows ***
+**Connect pins as follows**
 <br/>
 **STM32F4 <-----> LED Display**
 * PB0 <-----> a <br />
@@ -36,7 +36,7 @@ LED Dispaly and connection wires are also needed.
 * 3.3V <-----> VCC <br />
 
 **STM32F4 <-----> STM32F4**
-* PA1 <-----> *
+* PA1 <-----> 
 
 ### 4.2 IDE
 Use Eclipse for C/C++ Developers updated to STM32 Workbench.
