@@ -3,8 +3,4 @@
 *.xml
 *.ld
 
-CMSIS/
-startup/
 Debug/
-StdPeriph_Driver/
-Utilities/
