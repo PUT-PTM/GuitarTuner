@@ -7,6 +7,7 @@
 
 #include "stm32f4xx.h"
 #include "stm32f4_discovery.h"
+#include "stm32_tm1637.h"
 #include "init.h"
 
 void init()
@@ -105,6 +106,8 @@ void ADC_init()
 	//W przykładzie powyżej konfigurujemy pierwszy kanał przetwornika ADC1 do samodzielnej pracy,
 	//ustawiając czas próbkowania na 84 cykle sygnału zegarowego.
 	ADC_RegularChannelConfig(ADC1, ADC_Channel_1, 1, ADC_SampleTime_84Cycles);
+
+	tm1637Init();
 
 	ADC_Cmd(ADC1, ENABLE);
 }

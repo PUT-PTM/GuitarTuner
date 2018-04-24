@@ -1,4 +1,7 @@
-#include "stm32l1xx_hal.h"
+#include "system_stm32f4xx.h"
+#include "stm32f4_discovery.h"
+#include "stm32f4xx.h"
+#include "system_stm32f4xx.h"
 
 #include "stm32_tm1637.h"
 
@@ -17,33 +20,49 @@ void _tm1637DioLow(void);
 
 #define CLK_PORT GPIOC
 #define DIO_PORT GPIOC
-#define CLK_PIN GPIO_PIN_0
-#define DIO_PIN GPIO_PIN_1
+#define CLK_PIN GPIO_Pin_0
+#define DIO_PIN GPIO_Pin_1
 #define CLK_PORT_CLK_ENABLE __HAL_RCC_GPIOC_CLK_ENABLE
 #define DIO_PORT_CLK_ENABLE __HAL_RCC_GPIOC_CLK_ENABLE
 
 
 const char segmentMap[] = {
     0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7d, 0x07, // 0-7
-    0x7f, 0x6f, 0x77, 0x7c, 0x39, 0x5e, 0x79, 0x71, // 8-9, A-F
+    0x7f, 0x6f, //8-9
+	0x77, 0x7c, 0x39, 0x5e, 0x79, 0x71, 0x3D, 0x76, // A-H,
+
     0x00
 };
 
 
 void tm1637Init(void)
 {
-    CLK_PORT_CLK_ENABLE();
-    DIO_PORT_CLK_ENABLE();
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC , ENABLE);
+	//CLK_PORT_CLK_ENABLE();
+    //DIO_PORT_CLK_ENABLE();
     GPIO_InitTypeDef g = {0};
-    g.Pull = GPIO_PULLUP;
-    g.Mode = GPIO_MODE_OUTPUT_OD; // OD = open drain
-    g.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-    g.Pin = CLK_PIN;
-    HAL_GPIO_Init(CLK_PORT, &g);
-    g.Pin = DIO_PIN;
-    HAL_GPIO_Init(DIO_PORT, &g);
+    g.GPIO_PuPd = GPIO_PuPd_UP;
+    g.GPIO_Mode = GPIO_Mode_OUT; // OD = open drain
+    g.GPIO_OType = GPIO_OType_OD;
+    g.GPIO_Speed = GPIO_Speed_100MHz;
+    g.GPIO_Pin = CLK_PIN;
+    GPIO_Init(CLK_PORT, &g);
+    g.GPIO_Pin = DIO_PIN;
+    GPIO_Init(DIO_PORT, &g);
+
+
+
 
     tm1637SetBrightness(8);
+}
+
+void int_to_string(int a,char arr[4]) {
+	if (a<=9999) {
+	for (int i=3;i>=0;i--) {
+		if (a!=0) arr[i]=a%10 +48; else arr[i]=' ';
+		a/=10;
+	}
+	}
 }
 
 void tm1637DisplayDecimal(int v, int displaySeparator)
@@ -57,6 +76,61 @@ void tm1637DisplayDecimal(int v, int displaySeparator)
         v /= 10;
     }
 
+    _tm1637Start();
+    _tm1637WriteByte(0x40);
+    _tm1637ReadResult();
+    _tm1637Stop();
+
+    _tm1637Start();
+    _tm1637WriteByte(0xc0);
+    _tm1637ReadResult();
+
+    for (int i = 0; i < 4; ++i) {
+        _tm1637WriteByte(digitArr[3 - i]);
+        _tm1637ReadResult();
+    }
+
+    _tm1637Stop();
+}
+
+
+/*
+ *
+const char segmentMap[] = {
+    0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7d, 0x07, // 0-7
+    0x7f, 0x6f, //8-9
+	0x77, 0x7c, 0x39, 0x5e, 0x79, 0x71, 0x3D, 0x76, // A-H,
+
+    0x00
+};
+ * */
+void tm1637Display(char arr[4], int displaySeparator)
+{
+    unsigned char digitArr[4];
+    for (int i=3;i>=0;i--) {
+    switch (arr[i]) {
+    			case 'a': { digitArr[3-i]=0x77; break;}
+    			case 'b': { digitArr[3-i]=0x7c; break;}
+    			case 'c': { digitArr[3-i]=0x39; break;}
+    			case 'd': { digitArr[3-i]=0x5e; break;}
+    			case 'e': { digitArr[3-i]=0x79; break;}
+    			case 'f': { digitArr[3-i]=0x71; break;}
+    			case 'g': { digitArr[3-i]=0x3D; break;}
+    			case 'h': { digitArr[3-i]=0x76; break;}
+    			case '0': { digitArr[3-i]=0x3f; break;}
+    			case '1': { digitArr[3-i]=0x06; break;}
+    			case '2': { digitArr[3-i]=0x5b; break;}
+    			case '3': { digitArr[3-i]=0x4f; break;}
+    			case '4': { digitArr[3-i]=0x66; break;}
+    			case '5': { digitArr[3-i]=0x6d; break;}
+    			case '6': { digitArr[3-i]=0x7d; break;}
+    			case '7': { digitArr[3-i]=0x07; break;}
+    			case '8': { digitArr[3-i]=0x7f; break;}
+    			case '9': { digitArr[3-i]=0x6f; break;}
+    			case ' ': {digitArr[3-i]=0x00 ; break;}
+    			default : {digitArr[3-i]=0x2B; break;}
+    }
+    }
     _tm1637Start();
     _tm1637WriteByte(0x40);
     _tm1637ReadResult();
@@ -118,14 +192,24 @@ void _tm1637ReadResult(void)
     _tm1637ClkLow();
 }
 
+void testing() {
+	for (int i=0;i<8;i++) {
+		_tm1637ClkLow();
+		_tm1637DioHigh();
+	}
+}
+
 void _tm1637WriteByte(unsigned char b)
 {
-    for (int i = 0; i < 8; ++i) {
+    for (int i = 0; i < 8; ++i)
+    {
         _tm1637ClkLow();
-        if (b & 0x01) {
+        if (b & 0x01)
+        {
             _tm1637DioHigh();
         }
-        else {
+        else
+        {
             _tm1637DioLow();
         }
         _tm1637DelayUsec(3);
@@ -146,20 +230,24 @@ void _tm1637DelayUsec(unsigned int i)
 
 void _tm1637ClkHigh(void)
 {
-    HAL_GPIO_WritePin(CLK_PORT, CLK_PIN, GPIO_PIN_SET);
+    GPIO_SetBits(CLK_PORT, CLK_PIN);
+	//HAL_GPIO_WritePin(CLK_PORT, CLK_PIN, GPIO_PIN_SET);
 }
 
 void _tm1637ClkLow(void)
 {
-    HAL_GPIO_WritePin(CLK_PORT, CLK_PIN, GPIO_PIN_RESET);
+	GPIO_ResetBits(CLK_PORT, CLK_PIN);
+	//HAL_GPIO_WritePin(CLK_PORT, CLK_PIN, GPIO_PIN_RESET);
 }
 
 void _tm1637DioHigh(void)
 {
-    HAL_GPIO_WritePin(DIO_PORT, DIO_PIN, GPIO_PIN_SET);
+	GPIO_SetBits(DIO_PORT, DIO_PIN);
+    //HAL_GPIO_WritePin(DIO_PORT, DIO_PIN, GPIO_PIN_SET);
 }
 
 void _tm1637DioLow(void)
 {
-    HAL_GPIO_WritePin(DIO_PORT, DIO_PIN, GPIO_PIN_RESET);
+	GPIO_ResetBits(DIO_PORT, DIO_PIN);
+	//HAL_GPIO_WritePin(DIO_PORT, DIO_PIN, GPIO_PIN_RESET);
 }
