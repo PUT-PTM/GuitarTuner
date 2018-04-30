@@ -107,28 +107,31 @@ const char segmentMap[] = {
 void tm1637Display(char arr[4], int displaySeparator)
 {
     unsigned char digitArr[4];
-    for (int i=3;i>=0;i--) {
+    int j;
+    for (int i=3;i>=0;i--)
+    {
+    	j = 3-i;
     switch (arr[i]) {
-    			case 'a': { digitArr[3-i]=0x77; break;}
-    			case 'b': { digitArr[3-i]=0x7c; break;}
-    			case 'c': { digitArr[3-i]=0x39; break;}
-    			case 'd': { digitArr[3-i]=0x5e; break;}
-    			case 'e': { digitArr[3-i]=0x79; break;}
-    			case 'f': { digitArr[3-i]=0x71; break;}
-    			case 'g': { digitArr[3-i]=0x3D; break;}
-    			case 'h': { digitArr[3-i]=0x76; break;}
-    			case '0': { digitArr[3-i]=0x3f; break;}
-    			case '1': { digitArr[3-i]=0x06; break;}
-    			case '2': { digitArr[3-i]=0x5b; break;}
-    			case '3': { digitArr[3-i]=0x4f; break;}
-    			case '4': { digitArr[3-i]=0x66; break;}
-    			case '5': { digitArr[3-i]=0x6d; break;}
-    			case '6': { digitArr[3-i]=0x7d; break;}
-    			case '7': { digitArr[3-i]=0x07; break;}
-    			case '8': { digitArr[3-i]=0x7f; break;}
-    			case '9': { digitArr[3-i]=0x6f; break;}
-    			case ' ': {digitArr[3-i]=0x00 ; break;}
-    			default : {digitArr[3-i]=0x2B; break;}
+    	case 'a': { digitArr[j]=0x77; break;}
+   		case 'b': { digitArr[j]=0x7c; break;}
+  		case 'c': { digitArr[j]=0x39; break;}
+  		case 'd': { digitArr[j]=0x5e; break;}
+   		case 'e': { digitArr[j]=0x79; break;}
+ 		case 'f': { digitArr[j]=0x71; break;}
+ 		case 'g': { digitArr[j]=0x3D; break;}
+   		case 'h': { digitArr[j]=0x76; break;}
+   		case '0': { digitArr[j]=0x3f; break;}
+   		case '1': { digitArr[j]=0x06; break;}
+   		case '2': { digitArr[j]=0x5b; break;}
+   		case '3': { digitArr[j]=0x4f; break;}
+   		case '4': { digitArr[j]=0x66; break;}
+   		case '5': { digitArr[j]=0x6d; break;}
+   		case '6': { digitArr[j]=0x7d; break;}
+   		case '7': { digitArr[j]=0x07; break;}
+   		case '8': { digitArr[j]=0x7f; break;}
+   		case '9': { digitArr[j]=0x6f; break;}
+   		case ' ': {digitArr[j]=0x00 ; break;}
+   		default : {digitArr[j]=0x2B; break;}
     }
     }
     _tm1637Start();

@@ -10,18 +10,4 @@
 
 void init();
 
-void TIM_init();
-
-void GPIO_init();
-
-void NVIC_init();
-
-void EXTI_init();
-
-void ADC_init();
-
-void DAC_init();
-
-
-
 #endif /* INIT_H_ */

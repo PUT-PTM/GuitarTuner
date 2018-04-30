@@ -14,7 +14,7 @@ LED Display shows frequency of sound and name of tone with direction for tune ('
 
 ## 3.Tools
 This project is for STM32F4Discovery.
-LED Dispaly and connection wires are also needed.
+LED Dispaly TM1637 and connection wires are also needed.
 
 ## 4.How to run
 ### 4.1 Wire Connections 
