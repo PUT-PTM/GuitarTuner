@@ -56,7 +56,8 @@ void tm1637Init(void)
     tm1637SetBrightness(8);
 }
 
-void int_to_string(int a,char arr[4]) {
+void int_to_string(int a,char arr[4])
+{
 	if (a<=9999) {
 	for (int i=3;i>=0;i--) {
 		if (a!=0) arr[i]=a%10 +48; else arr[i]=' ';
