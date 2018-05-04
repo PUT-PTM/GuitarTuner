@@ -93,13 +93,13 @@ void PDMFilter_init()
 	  Filter.In_MicChannels = 1;
 	  Filter.Out_MicChannels = 1;
 
-#warning Poprawic PDM init
 	  PDM_Filter_Init(&Filter);
 }
 
 void init()
 {
 	tm1637Init();
+	tm1637Logo();
 
 	GPIO_Configure();
 	PDMFilter_init();

@@ -16,6 +16,18 @@ void _tm1637ClkLow(void);
 void _tm1637DioHigh(void);
 void _tm1637DioLow(void);
 
+enum waitTime {wt_short, wt_medium, wt_long};
+
+void wait(enum waitTime wt)
+{
+	int time;
+	if(wt == wt_short) time = 0x1000;
+	else if(wt == wt_medium) time = 0x10000;
+	else if(wt == wt_long) time = 0x10000;
+	for(int i=0;i<time;i++);
+}
+
+
 // Configuration.
 
 #define CLK_PORT GPIOC
@@ -24,6 +36,7 @@ void _tm1637DioLow(void);
 #define DIO_PIN GPIO_Pin_1
 #define CLK_PORT_CLK_ENABLE __HAL_RCC_GPIOC_CLK_ENABLE
 #define DIO_PORT_CLK_ENABLE __HAL_RCC_GPIOC_CLK_ENABLE
+
 
 
 const char segmentMap[] = {
@@ -58,11 +71,13 @@ void tm1637Init(void)
 
 void int_to_string(int a,char arr[4])
 {
-	if (a<=9999) {
-	for (int i=3;i>=0;i--) {
-		if (a!=0) arr[i]=a%10 +48; else arr[i]=' ';
-		a/=10;
-	}
+	if (a<10000)
+	{
+		for (int i=3;i>=0;i--)
+		{
+			if (a!=0) arr[i]=a%10 +48; else arr[i]=' ';
+			a/=10;
+		}
 	}
 }
 
@@ -105,7 +120,9 @@ const char segmentMap[] = {
     0x00
 };
  * */
-void tm1637Display(char arr[4], int displaySeparator)
+
+//void tm1637Display(char arr[4], int displaySeparator)
+void tm1637Display(char arr[4])
 {
     unsigned char digitArr[4];
     int j;
@@ -132,6 +149,15 @@ void tm1637Display(char arr[4], int displaySeparator)
    		case '8': { digitArr[j]=0x7f; break;}
    		case '9': { digitArr[j]=0x6f; break;}
    		case ' ': {digitArr[j]=0x00 ; break;}
+
+   		case 'o': {digitArr[j]=0x92; break;}
+   		case 'n': {digitArr[j]=0x84; break;}
+   		case 'r': {digitArr[j]=0x80; break;}
+   		case 's': {digitArr[j]=0x109; break;}
+
+   		case '-': {digitArr[j]=0x64; break;}
+   		case '+': {digitArr[j]=0x70; break;}
+
    		default : {digitArr[j]=0x2B; break;}
     }
     }
@@ -151,6 +177,18 @@ void tm1637Display(char arr[4], int displaySeparator)
 
     _tm1637Stop();
 }
+
+
+void tm1637Logo()
+{
+	tm1637Display("A4  ");
+	wait(wt_medium);
+	tm1637Display("  is ");
+	wait(wt_medium);
+	tm1637Display(" 432");
+	wait(wt_medium);
+}
+
 
 // Valid brightness values: 0 - 8.
 // 0 = display off.

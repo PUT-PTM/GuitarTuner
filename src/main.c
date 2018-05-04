@@ -20,16 +20,17 @@
 #include "toneContainer.h"
 
 
-
+toneContainer container;
 
 enum displayMode {frequency, tone};
 enum displayMode displayMode_ = tone;
 
-toneContainer container;
+
 
 int main(void)
 {
 	init();
+	TC_fill(&container);
 
 /*
 	int i=0;
@@ -41,9 +42,6 @@ int main(void)
 	if (i==10000) i=0;
 	}
 	*/
-
-
-
 	for(;;)
 	{
 

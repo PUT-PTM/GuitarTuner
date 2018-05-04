@@ -18,10 +18,12 @@ typedef struct {
 
 } toneContainer;
 
-void TC_append(toneContainer* TC, double Tone, double Low, double Up, char display[4]);
+void TC_append(toneContainer* TC, double Tone, char display[4]);
 
 void TC_find(toneContainer* TC, double Frequency, char display[4]);
 
 void TC_clear(toneContainer* TC);
+
+void TC_fill(toneContainer* TC);
 
 #endif
