@@ -8,9 +8,15 @@
 #include "arm_math.h"
 #include "stm32f4xx.h"
 #include "stm32f4_discovery.h"
+#include "toneContainer.h"
 
 #ifndef IRQ_HANDLER_H_
 #define IRQ_HANDLER_H_
+
+enum displayMode {tone, frequency};
+enum displayMode displayMode_ = tone;
+
+toneContainer container;
 
 uint32_t InternalBufferSize = 0;
 

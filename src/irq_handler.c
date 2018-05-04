@@ -22,6 +22,7 @@ extern PDMFilter_InitStruct Filter;
 extern uint8_t  PDM_Input_Buffer[];
 extern uint16_t PCM_Output_Buffer[];
 
+extern float32_t maxvalue;
 
 void SPI2_IRQHandler(void)
 {
@@ -45,6 +46,17 @@ void SPI2_IRQHandler(void)
 
       PDM_Filter_64_LSB(PDM_Input_Buffer, PCM_Output_Buffer, volume, &Filter);
       FFT();
+
+      char display[4];
+      if(displayMode_ == frequency)
+      {
+    	  int_to_string((int)maxvalue, display);
+      }
+      else
+      {
+    	  TC_find(&container, maxvalue, display);
+      }
+      tm1637Display(display);
     }
   }
 }

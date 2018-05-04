@@ -1,28 +1,30 @@
+#include "arm_math.h"
+
 
 #ifndef TC
 #define TC
 
-#define TC_size 1024
+#define TC_size 64
 
 typedef struct {
 
-	double lowerBound, toneFrequency, upperBound;
+	float32_t lowerBound, toneFrequency, upperBound;
 
 	char display[3];
 
 } toneNode;
 
 typedef struct {
-
+	unsigned int size;
 	toneNode container[TC_size];
 
 } toneContainer;
 
-void TC_append(toneContainer* TC, double Tone, char display[4]);
+void TC_append(toneContainer* TC, float32_t Tone, char display[4]);
 
-void TC_find(toneContainer* TC, double Frequency, char display[4]);
+void TC_find(toneContainer* TC, float32_t Frequency, char display[4]);
 
-void TC_clear(toneContainer* TC);
+void TC_init(toneContainer* TC);
 
 void TC_fill(toneContainer* TC);
 

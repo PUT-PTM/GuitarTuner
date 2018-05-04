@@ -1,4 +1,5 @@
 #include "toneContainer.h"
+#include "arm_math.h"
 
 void charCopy(unsigned int n, char new[], char orig[])
 {
@@ -8,34 +9,32 @@ void charCopy(unsigned int n, char new[], char orig[])
 	}
 }
 
-void TC_append(toneContainer* tc, double Tone, char disp[])
+void TC_append(toneContainer * tc, float32_t Tone, char disp[])
 {
-	for(int i=0;i<TC_size;i++)
+	unsigned int size = tc->size;
+	if(size < 64)
 	{
-		if (tc->container[i].toneFrequency == 0) //if empty
+		if(tc->size==0)
 		{
-			if(i==0)
-			{
-				tc->container[i].lowerBound = 0;
-			}
-			else
-			{
-				double temp = (tc->container[i-1].toneFrequency + tc->container[i].toneFrequency)/2;
-				tc->container[i-1].upperBound = temp;
-				tc->container[i].lowerBound = temp;
-			}
-
-			tc->container[i].upperBound = 16000;
-
-
-			tc->container[i].toneFrequency = Tone;
-			charCopy(3,tc->container[i].display, disp);
-			return;
+			tc->container[size].lowerBound = 0;
 		}
+		else
+		{
+			float32_t temp = (tc->container[size-1].toneFrequency + tc->container[size].toneFrequency)/2;
+			tc->container[size-1].upperBound = temp;
+			tc->container[size].lowerBound = temp;
+		}
+
+		tc->container[size].upperBound = 16000;
+
+		tc->container[size].toneFrequency = Tone;
+		charCopy(3,tc->container[size].display, disp);
+
+		tc->size++;
 	}
 }
 
-void TC_find(toneContainer* tc, double Frequency, char disp[4])
+void TC_find(toneContainer * tc, float32_t Frequency, char disp[4])
 {
 	for(int i=0;i<TC_size;i++)
 	{
@@ -62,16 +61,15 @@ void TC_find(toneContainer* tc, double Frequency, char disp[4])
 	charCopy(4, disp, "none");
 }
 
-void TC_clear(toneContainer* tc)
+void TC_init(toneContainer * tc)
 {
-	for(int i=0;i<TC_size;i++)
-	{
-		tc->container[i].toneFrequency = 0;
-	}
+	tc->size = 0;
 }
 
-void TC_fill(toneContainer* tc)
+void TC_fill(toneContainer * tc)
 {
+	TC_init(tc);
+
 	TC_append(tc, 192.43, "g  ");
 	TC_append(tc, 203.88, "ab ");
 	TC_append(tc, 216.00, "a  ");

@@ -12,6 +12,7 @@
 #include "stm32_tm1637.h"
 #include "init.h"
 #include "FFT.h"
+#include "toneContainer.h"
 
 const int DECIMATION_FACTOR = 64;
 const int OUT_FREQ = 32000;
@@ -21,6 +22,7 @@ const int PCM_Output_Buffer_SIZE = 3200;
 //const int PCM_Output_Buffer_SIZE = OUT_FREQ/1000;
 
 extern PDMFilter_InitStruct Filter;
+extern toneContainer container;
 
 void GPIO_Configure(void){
   GPIO_InitTypeDef GPIO_InitStructure;
@@ -108,4 +110,5 @@ void init()
 	I2S_Configure();
 
 	FFT_init();
+	TC_fill(&container);
 }
