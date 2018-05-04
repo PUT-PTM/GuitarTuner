@@ -1,10 +1,10 @@
 #include "arm_math.h"
 
-
 #ifndef TC
 #define TC
 
 #define TC_size 64
+#define TC_TuneMargin 0.1
 
 typedef struct {
 
