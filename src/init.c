@@ -24,30 +24,42 @@ const int PCM_Output_Buffer_SIZE = 3200;
 extern PDMFilter_InitStruct Filter;
 extern toneContainer container;
 
-void GPIO_Configure(void){
-  GPIO_InitTypeDef GPIO_InitStructure;
+void GPIO_Configure(void)
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
 
-  // Configure MP45DT02's CLK / I2S2_CLK (PB10) line
-  GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_10;
-  GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF;
-  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-  GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_NOPULL;
-  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_25MHz;
-  GPIO_Init(GPIOB, &GPIO_InitStructure);
+	// Configure MP45DT02's CLK / I2S2_CLK (PB10) line
+	GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_10;
+	GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF;
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+	GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_NOPULL;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_25MHz;
+	GPIO_Init(GPIOB, &GPIO_InitStructure);
 
-  // Configure MP45DT02's DOUT / I2S2_DATA (PC3) line
-  GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_3;
-  GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF;
-  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-  GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_NOPULL;
-  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_25MHz;
-  GPIO_Init(GPIOC, &GPIO_InitStructure);
+	// Configure MP45DT02's DOUT / I2S2_DATA (PC3) line
+	GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_3;
+	GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF;
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+	GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_NOPULL;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_25MHz;
+	GPIO_Init(GPIOC, &GPIO_InitStructure);
 
-  GPIO_PinAFConfig(GPIOB, GPIO_PinSource10, GPIO_AF_SPI2);  // Connect pin 10 of port B to the SPI2 peripheral
-  GPIO_PinAFConfig(GPIOC, GPIO_PinSource3, GPIO_AF_SPI2);   // Connect pin 3 of port C to the SPI2 peripheral
+	GPIO_PinAFConfig(GPIOB, GPIO_PinSource10, GPIO_AF_SPI2);  // Connect pin 10 of port B to the SPI2 peripheral
+	GPIO_PinAFConfig(GPIOC, GPIO_PinSource3, GPIO_AF_SPI2);   // Connect pin 3 of port C to the SPI2 peripheral
+
+	//USER button
+
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_Init(GPIOA, &GPIO_InitStructure);
+
 }
 
-void I2S_Configure(void){
+void I2S_Configure(void)
+{
   I2S_InitTypeDef I2S_InitStructure;
 
   SPI_I2S_DeInit(SPI2);
@@ -63,28 +75,45 @@ void I2S_Configure(void){
   SPI_I2S_ITConfig(SPI2, SPI_I2S_IT_RXNE, ENABLE);
 }
 
-void NVIC_Configure(void){
-  NVIC_InitTypeDef NVIC_InitStructure;
+void NVIC_Configure(void)
+{
+	//Konfiguracja przerwań - przerwania zewnętrzne.
+	//W pierwszej kolejności należy uruchomić zasilanie systemu przerwań:
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);
 
-  // Configure the interrupt priority grouping
-  NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1);
+	NVIC_InitTypeDef NVIC_InitStructure;
 
-  // Configure the SPI2 interrupt channel
-  NVIC_InitStructure.NVIC_IRQChannel = SPI2_IRQn;
-  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
-  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
-  NVIC_Init(&NVIC_InitStructure);
+	// Configure the interrupt priority grouping
+	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1);
+
+
+	//------for SPI2
+	NVIC_InitStructure.NVIC_IRQChannel = SPI2_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_Init(&NVIC_InitStructure);
+
+	//------for USER button
+	NVIC_InitStructure.NVIC_IRQChannel = EXTI0_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x00;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x00;
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_Init(&NVIC_InitStructure);
+
 }
 
 void RCC_Configure(void)
 {
-  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB | RCC_AHB1Periph_GPIOC |
-                         RCC_AHB1Periph_CRC, ENABLE);
+	//USER
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
 
-  RCC_APB1PeriphClockCmd(RCC_APB1Periph_SPI2, ENABLE);
+	//PB10, PC3
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB | RCC_AHB1Periph_GPIOC | RCC_AHB1Periph_CRC, ENABLE);
 
-  RCC_PLLI2SCmd(ENABLE);
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_SPI2, ENABLE);
+
+	RCC_PLLI2SCmd(ENABLE);
 }
 
 void PDMFilter_init()
@@ -98,17 +127,37 @@ void PDMFilter_init()
 	  PDM_Filter_Init(&Filter);
 }
 
+void EXTI_init()
+{
+	EXTI_InitTypeDef EXTI_InitStructure;
+	// wybór numeru aktualnie konfigurowanej linii przerwań
+	EXTI_InitStructure.EXTI_Line = EXTI_Line0;
+	// wybór trybu - przerwanie bądź zdarzenie
+	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+	// wybór zbocza, na które zareaguje przerwanie
+	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising;
+	// uruchom daną linię przerwań
+	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+	// zapisz strukturę konfiguracyjną przerwań zewnętrznych do rejestrów
+	EXTI_Init(&EXTI_InitStructure);
+
+	// podłączenie danego pinu portu do kontrolera przerwań
+	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOA, EXTI_PinSource0);
+}
+
 void init()
 {
 	tm1637Init();
-	tm1637Logo();
+	tm1637ShowLogo();
 
-	GPIO_Configure();
-	PDMFilter_init();
 	RCC_Configure();
+	GPIO_Configure();
+
 	NVIC_Configure();
+	EXTI_init();
 	I2S_Configure();
 
+	PDMFilter_init();
 	FFT_init();
 	TC_fill(&container);
 }
