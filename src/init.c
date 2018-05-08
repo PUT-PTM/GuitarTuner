@@ -28,6 +28,7 @@ void GPIO_Configure(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 
+	/*
 	// Configure MP45DT02's CLK / I2S2_CLK (PB10) line
 	GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_10;
 	GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF;
@@ -46,8 +47,10 @@ void GPIO_Configure(void)
 
 	GPIO_PinAFConfig(GPIOB, GPIO_PinSource10, GPIO_AF_SPI2);  // Connect pin 10 of port B to the SPI2 peripheral
 	GPIO_PinAFConfig(GPIOC, GPIO_PinSource3, GPIO_AF_SPI2);   // Connect pin 3 of port C to the SPI2 peripheral
+	 */
 
 	//USER button
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
 
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
@@ -55,7 +58,6 @@ void GPIO_Configure(void)
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
 	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
 	GPIO_Init(GPIOA, &GPIO_InitStructure);
-
 }
 
 void I2S_Configure(void)
@@ -86,13 +88,14 @@ void NVIC_Configure(void)
 	// Configure the interrupt priority grouping
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1);
 
-
+	/*
 	//------for SPI2
 	NVIC_InitStructure.NVIC_IRQChannel = SPI2_IRQn;
 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&NVIC_InitStructure);
+	*/
 
 	//------for USER button
 	NVIC_InitStructure.NVIC_IRQChannel = EXTI0_IRQn;
@@ -100,20 +103,19 @@ void NVIC_Configure(void)
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x00;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&NVIC_InitStructure);
-
 }
 
 void RCC_Configure(void)
 {
 	//USER
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
+	//RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
 
-	//PB10, PC3
+	/*
+	//PB10, PC3, SPI
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB | RCC_AHB1Periph_GPIOC | RCC_AHB1Periph_CRC, ENABLE);
-
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_SPI2, ENABLE);
-
 	RCC_PLLI2SCmd(ENABLE);
+	*/
 }
 
 void PDMFilter_init()
@@ -145,19 +147,77 @@ void EXTI_init()
 	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOA, EXTI_PinSource0);
 }
 
+void ADC_init()
+{
+	// ADC input is on PA1
+	// zegar dla portu GPIO z którego wykorzystany zostanie pin jako wejście ADC (PA1)
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA , ENABLE);
+
+	// zegar dla modułu ADC1
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1, ENABLE);
+
+	// GPIO dla wejścia ADC
+	GPIO_InitTypeDef GPIO_InitStructure;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_Init(GPIOA, &GPIO_InitStructure);
+
+	//ogólna konfiguracja ADC
+	ADC_CommonInitTypeDef ADC_CommonInitStructure;
+	ADC_CommonInitStructure.ADC_Mode = ADC_Mode_Independent;
+	ADC_CommonInitStructure.ADC_Prescaler = ADC_Prescaler_Div2;
+	ADC_CommonInitStructure.ADC_DMAAccessMode = ADC_DMAAccessMode_Disabled;
+	// czas przerwy pomiędzy kolejnymi konwersjami
+	ADC_CommonInitStructure.ADC_TwoSamplingDelay = ADC_TwoSamplingDelay_5Cycles;
+	ADC_CommonInit(&ADC_CommonInitStructure);
+
+	//konfiguracja ADC1
+	ADC_InitTypeDef ADC_InitStructure;
+	//ustawienie rozdzielczości przetwornika na maksymalną (12 bitów)
+	ADC_InitStructure.ADC_Resolution = ADC_Resolution_12b;
+	//wyłączenie trybu skanowania (odczytywać będziemy jedno wejście ADC
+	//w trybie skanowania automatycznie wykonywana jest konwersja na wielu //wejściach/kanałach)
+	ADC_InitStructure.ADC_ScanConvMode = DISABLE;
+	//włączenie ciągłego trybu pracy
+	ADC_InitStructure.ADC_ContinuousConvMode = ENABLE;
+	//wyłączenie zewnętrznego wyzwalania
+	//konwersja może być wyzwalana timerem, stanem wejścia itd. (szczegóły w //dokumentacji)
+	ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_T1_CC1;
+	ADC_InitStructure.ADC_ExternalTrigConvEdge = ADC_ExternalTrigConvEdge_None;
+	//wartość binarna wyniku będzie podawana z wyrównaniem do prawej
+	//funkcja do odczytu stanu przetwornika ADC zwraca wartość 16-bitową
+	//dla przykładu, wartość 0xFF wyrównana w prawo to 0x00FF, w lewo 0x0FF0
+	ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
+	//liczba konwersji równa 1, bo 1 kanał
+	ADC_InitStructure.ADC_NbrOfConversion = 1;
+
+	ADC_Init(ADC1, &ADC_InitStructure);
+
+	//konfiguracja kanału ADC_Ch1
+	//W przykładzie powyżej konfigurujemy pierwszy kanał przetwornika ADC1 do samodzielnej pracy,
+	//ustawiając czas próbkowania na 84 cykle sygnału zegarowego.
+	ADC_RegularChannelConfig(ADC1, ADC_Channel_1, 1, ADC_SampleTime_84Cycles);
+
+	ADC_Cmd(ADC1, ENABLE);
+#warning poprawic ADC
+	//ADC_SoftwareStartConv(ADC1);
+}
+
+
 void init()
 {
 	tm1637Init();
 	tm1637ShowLogo();
 
-	RCC_Configure();
-	GPIO_Configure();
+	//RCC_Configure();
+	GPIO_Configure(); //USER-BUTTON
 
-	NVIC_Configure();
-	EXTI_init();
-	I2S_Configure();
+	NVIC_Configure(); //USER
+	EXTI_init(); //USER
+	//I2S_Configure();
 
-	PDMFilter_init();
+	//PDMFilter_init();
 	FFT_init();
 	TC_fill(&container);
 }

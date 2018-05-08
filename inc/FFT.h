@@ -9,21 +9,15 @@
 #ifndef FFT_H_
 #define FFT_H_
 
-uint8_t  PDM_Input_Buffer[25600];
-uint16_t PCM_Output_Buffer[3200];
 
-arm_rfft_instance_f32 S;
-arm_cfft_radix4_instance_f32 S_CFFT;
+#define BUFFER_INPUT_SIZE 1024
 
-float32_t buffer_input[1024];
-float32_t buffer_output[1024];
-float32_t buffer_output_mag[1024];
-float32_t maxvalue;
-uint32_t  maxvalueindex;
-uint8_t   mode;
+void buffer_add(float32_t elem);
 
 void FFT_init();
 
+//FFT and display result on tm1637
 void FFT();
+
 
 #endif /* FFT_H_ */

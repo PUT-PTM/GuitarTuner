@@ -1,18 +1,28 @@
 #include "arm_math.h"
 #include "stm32f4xx.h"
 #include "stm32f4_discovery.h"
-#include "pdm_filter.h"
 
 #include "FFT.h"
+#include "toneContainer.h"
+#include "stm32_tm1637.h"
 
-extern const int DECIMATION_FACTOR;
-extern const int OUT_FREQ;
-extern const int PDM_Input_Buffer_SIZE;
-extern const int PCM_Output_Buffer_SIZE;
-
-extern PDMFilter_InitStruct Filter;
 extern arm_rfft_instance_f32 S;
 extern arm_cfft_radix4_instance_f32 S_CFFT;
+
+extern toneContainer container;
+extern enum displayMode displayMode_;
+
+toneContainer container;
+
+int buffer_input_length = 0;
+float32_t buffer_input[BUFFER_INPUT_SIZE];
+float32_t buffer_output[BUFFER_INPUT_SIZE];
+float32_t buffer_output_mag[BUFFER_INPUT_SIZE];
+float32_t maxvalue;
+uint32_t  maxvalueindex;
+
+arm_rfft_instance_f32 S;
+arm_cfft_radix4_instance_f32 S_CFFT;
 
 void FFT_init()
 {
@@ -21,34 +31,34 @@ void FFT_init()
 
 void FFT()
 {
-	static int z=0;
-	int i;
-	// Przekopiuj dane paczki do bufora
-	for(int i=0; i<(OUT_FREQ/1000); i++)
-	{
-	  buffer_input[i+(OUT_FREQ/1000)*z] = (float32_t) PCM_Output_Buffer[i];
-	}
-
-	++z;
-	if(z > 512/(OUT_FREQ/1000))
-	{
-	  z = 0;
-	  // Wyznaczenie transformaty Fouriera
+	  // transformata
 	  arm_rfft_f32(&S, buffer_input, buffer_output);
-	  // Obliczenie modu³ów
-	  arm_cmplx_mag_f32(buffer_output, buffer_output_mag, 512);
-	  // Znalezienie sk³adowej harmonicznej sygna³u o najwiêkszej amplitudzie
-	  arm_max_f32(&(buffer_output_mag[1]), 512, &maxvalue, &maxvalueindex);
-	  // Skalowanie wartoœci modu³ów
-	  for(i=0; i<512; ++i)
+	  // modu³y liczb
+	  arm_cmplx_mag_f32(buffer_output, buffer_output_mag,  BUFFER_INPUT_SIZE/2);
+	  // max
+	  arm_max_f32(&(buffer_output_mag[1]), BUFFER_INPUT_SIZE/2, &maxvalue, &maxvalueindex);
+
+	  // wypisz
+	  char display[4];
+	  if(displayMode_ == frequency)
 	  {
-		buffer_output_mag[i+1] = 140*buffer_output_mag[i+1]/20000000;
+		  int_to_string((int)maxvalue, display);
 	  }
+	  else
+	  {
+		  TC_find(&container, maxvalue, display);
+	  }
+	  tm1637Display(display);
+}
 
-	  // ************************************************************
-	  // Rysowanie nowego widma
-#warning ustawienie na wyœwietlaczu wartoœci
-
-	  //DrawSpectrum_Update(Green);
+void buffer_add(float32_t elem)
+{
+	if(buffer_input_length == BUFFER_INPUT_SIZE)
+	{
+		FFT();
+		buffer_input_length = 0;
 	}
+
+	buffer_input[buffer_input_length] = elem;
+	buffer_input_length++;
 }

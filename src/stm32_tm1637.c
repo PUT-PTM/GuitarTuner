@@ -16,6 +16,8 @@ void _tm1637ClkLow(void);
 void _tm1637DioHigh(void);
 void _tm1637DioLow(void);
 
+enum displayMode displayMode_ = tone;
+
 enum waitTime {wt_short, wt_medium, wt_long};
 
 void wait(enum waitTime wt)
@@ -36,7 +38,6 @@ void wait(enum waitTime wt)
 #define DIO_PIN GPIO_Pin_1
 #define CLK_PORT_CLK_ENABLE __HAL_RCC_GPIOC_CLK_ENABLE
 #define DIO_PORT_CLK_ENABLE __HAL_RCC_GPIOC_CLK_ENABLE
-
 
 
 const char segmentMap[] = {
@@ -62,9 +63,6 @@ void tm1637Init(void)
     GPIO_Init(CLK_PORT, &g);
     g.GPIO_Pin = DIO_PIN;
     GPIO_Init(DIO_PORT, &g);
-
-
-
 
     tm1637SetBrightness(8);
 }
@@ -153,7 +151,7 @@ void tm1637Display(char arr[4])
    		case 'o': {digitArr[j]=0x92; break;}
    		case 'n': {digitArr[j]=0x84; break;}
    		case 'r': {digitArr[j]=0x80; break;}
-   		case 's': {digitArr[j]=0x109; break;}
+   		//case 's': {digitArr[j]=0x109; break;}
 
    		case '-': {digitArr[j]=0x64; break;}
    		case '+': {digitArr[j]=0x70; break;}

@@ -13,16 +13,10 @@
 #ifndef IRQ_HANDLER_H_
 #define IRQ_HANDLER_H_
 
-enum displayMode {tone, frequency};
-
-
-enum displayMode displayMode_ = tone;
-toneContainer container;
-uint32_t InternalBufferSize = 0;
-
-
 void SPI2_IRQHandler(void);
 
 void EXTI0_IRQHandler(void);
+
+void ADC_IRQHandler(void);
 
 #endif /* IRQ_HANDLER_H_ */

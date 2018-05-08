@@ -10,8 +10,6 @@
 #ifndef INIT_H_
 #define INIT_H_
 
-PDMFilter_InitStruct Filter;
-
 void init();
 
 #endif /* INIT_H_ */

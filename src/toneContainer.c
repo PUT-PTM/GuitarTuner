@@ -1,5 +1,4 @@
 #include "toneContainer.h"
-#include "arm_math.h"
 
 void charCopy(unsigned int n, char new[], char orig[])
 {
@@ -12,11 +11,11 @@ void charCopy(unsigned int n, char new[], char orig[])
 void TC_append(toneContainer * tc, float32_t Tone, char disp[])
 {
 	unsigned int size = tc->size;
-	if(size < 64)
+	if(size < TC_size)
 	{
 		if(tc->size==0)
 		{
-			tc->container[size].lowerBound = 10;
+			tc->container[size].lowerBound = TC_MIN_FREQUENCY;
 		}
 		else
 		{
@@ -25,7 +24,7 @@ void TC_append(toneContainer * tc, float32_t Tone, char disp[])
 			tc->container[size].lowerBound = temp;
 		}
 
-		tc->container[size].upperBound = 16000;
+		tc->container[size].upperBound = TC_MAX_FREQUENCY;
 
 		tc->container[size].toneFrequency = Tone;
 
@@ -45,7 +44,6 @@ void TC_find(toneContainer * tc, float32_t Frequency, char disp[4])
 
 			if(Frequency < (tc->container[i].toneFrequency - tc->container[i].toneFrequency*TC_TuneMargin))
 			{
-
 				disp[3] = '-';
 			}
 			else if(Frequency > (tc->container[i].toneFrequency + tc->container[i].toneFrequency*TC_TuneMargin))
@@ -64,7 +62,6 @@ void TC_find(toneContainer * tc, float32_t Frequency, char disp[4])
 			{
 				disp[3]=' ';
 			}
-
 			return;
 		}
 	}
