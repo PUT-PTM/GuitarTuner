@@ -179,12 +179,14 @@ void tm1637Display(char arr[4])
 
 void tm1637ShowLogo()
 {
+	/*
 	tm1637Display("A1  ");
-	wait(wt_medium);
+	wait(wt_long);
 	tm1637Display(" 1s "); //1s = is
-	wait(wt_medium);
-	tm1637Display(" 432");
-	wait(wt_medium);
+	wait(wt_long);
+	tm1637Display("1234");
+	wait(wt_long);
+	*/
 }
 
 
