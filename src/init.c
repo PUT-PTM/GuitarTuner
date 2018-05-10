@@ -82,51 +82,36 @@ void NVIC_Configure(void)
 	//Konfiguracja przerwań - przerwania zewnętrzne.
 	//W pierwszej kolejności należy uruchomić zasilanie systemu przerwań:
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);
-
-	NVIC_InitTypeDef NVIC_InitStructure;
-
-	// Configure the interrupt priority grouping
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1);
+	{
+		NVIC_InitTypeDef NVIC_InitStructure;
+		// Configure the interrupt priority grouping
+		//------for USER button
+		NVIC_InitStructure.NVIC_IRQChannel = EXTI0_IRQn;
+		NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x00;
+		NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x00;
+		NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+		NVIC_Init(&NVIC_InitStructure);
+	}
 
-	/*
-	//------for SPI2
-	NVIC_InitStructure.NVIC_IRQChannel = SPI2_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-	NVIC_Init(&NVIC_InitStructure);
-	*/
+	{
+		NVIC_InitTypeDef NVIC_InitStructure;
+		NVIC_InitStructure.NVIC_IRQChannel = ADC_IRQn;
+		// priorytet główny
+		NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x00;
+		// subpriorytet
+		NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x00;
+		// uruchom dany kanał
+		NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+		// zapisz wypełnioną strukturę do rejestrów
+		NVIC_Init(&NVIC_InitStructure);
 
-	//------for USER button
-	NVIC_InitStructure.NVIC_IRQChannel = EXTI0_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x00;
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x00;
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-	NVIC_Init(&NVIC_InitStructure);
-}
+		// wyczyszczenie przerwania adc1
+		ADC_ClearITPendingBit(ADC1, ADC_IT_EOC);
+		// zezwolenie na przerwania od adc1
+		ADC_ITConfig(ADC1, ADC_IT_EOC, ENABLE);
+	}
 
-void RCC_Configure(void)
-{
-	//USER
-	//RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
-
-	/*
-	//PB10, PC3, SPI
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB | RCC_AHB1Periph_GPIOC | RCC_AHB1Periph_CRC, ENABLE);
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_SPI2, ENABLE);
-	RCC_PLLI2SCmd(ENABLE);
-	*/
-}
-
-void PDMFilter_init()
-{
-	  Filter.Fs = OUT_FREQ;
-	  Filter.HP_HZ = 10;
-	  Filter.LP_HZ = 16000;
-	  Filter.In_MicChannels = 1;
-	  Filter.Out_MicChannels = 1;
-
-	  PDM_Filter_Init(&Filter);
 }
 
 void EXTI_init()
@@ -200,24 +185,31 @@ void ADC_init()
 	ADC_RegularChannelConfig(ADC1, ADC_Channel_1, 1, ADC_SampleTime_84Cycles);
 
 	ADC_Cmd(ADC1, ENABLE);
-#warning poprawic ADC
-	//ADC_SoftwareStartConv(ADC1);
+	ADC_SoftwareStartConv(ADC1);
 }
 
 
 void init()
 {
 	tm1637Init();
-	tm1637ShowLogo();
+	tm1637Display("   1");
 
-	//RCC_Configure();
 	GPIO_Configure(); //USER-BUTTON
+	tm1637Display("   2");
+
+	ADC_init();
+	tm1637Display("  25");
+#error tu skończyliśmy
 
 	NVIC_Configure(); //USER
-	EXTI_init(); //USER
-	//I2S_Configure();
+	tm1637Display("   3");
 
-	//PDMFilter_init();
+	EXTI_init(); //USER
+	tm1637Display("   4");
+
 	FFT_init();
-	TC_fill(&container);
+	tm1637Display("   5");
+
+	//TC_fill(&container);
+	tm1637Display("   6");
 }

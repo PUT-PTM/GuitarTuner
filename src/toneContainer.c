@@ -10,7 +10,9 @@ void charCopy(unsigned int n, char new[], char orig[])
 
 void TC_append(toneContainer * tc, float32_t Tone, char disp[])
 {
+	tm1637Display(" 001");
 	unsigned int size = tc->size;
+	tm1637Display(" 002");
 	if(size < TC_size)
 	{
 		if(tc->size==0)
@@ -23,13 +25,14 @@ void TC_append(toneContainer * tc, float32_t Tone, char disp[])
 			tc->container[size-1].upperBound = temp;
 			tc->container[size].lowerBound = temp;
 		}
+		tm1637Display(" 003");
 
 		tc->container[size].upperBound = TC_MAX_FREQUENCY;
-
+		tm1637Display(" 006");
 		tc->container[size].toneFrequency = Tone;
-
+		tm1637Display(" 007");
 		charCopy(3,tc->container[size].display, disp);
-
+		tm1637Display(" 008");
 		tc->size++;
 	}
 }
@@ -75,7 +78,10 @@ void TC_init(toneContainer * tc)
 
 void TC_fill(toneContainer * tc)
 {
+	tm1637Display("  01");
+
 	TC_init(tc);
+	tm1637Display("  02");
 
 	TC_append(tc, 192.43, "g   ");
 	TC_append(tc, 203.88, "ab  ");
@@ -117,4 +123,5 @@ void TC_fill(toneContainer * tc)
 	TC_append(tc, 1371.51, "f3  ");
 	TC_append(tc, 1453.07, "gb3 ");
 	TC_append(tc, 1539.47, "g3  ");
+	tm1637Display("  09");
 }

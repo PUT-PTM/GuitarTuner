@@ -17,7 +17,7 @@ void _tm1637DioHigh(void);
 void _tm1637DioLow(void);
 
 enum displayMode displayMode_ = tone;
-
+/*
 enum waitTime {wt_short, wt_medium, wt_long};
 
 void wait(enum waitTime wt)
@@ -29,7 +29,7 @@ void wait(enum waitTime wt)
 	for(int i=0;i<time;i++);
 }
 
-
+*/
 // Configuration.
 
 #define CLK_PORT GPIOC
@@ -65,6 +65,7 @@ void tm1637Init(void)
     GPIO_Init(DIO_PORT, &g);
 
     tm1637SetBrightness(8);
+    tm1637Display("+-  ");
 }
 
 void int_to_string(int a,char arr[4])
@@ -155,6 +156,7 @@ void tm1637Display(char arr[4])
 
    		case '-': {digitArr[j]=0x64; break;}
    		case '+': {digitArr[j]=0x70; break;}
+   		case '_': {digitArr[j]=0x8; break;}
 
    		default : {digitArr[j]=0x2B; break;}
     }
@@ -176,18 +178,22 @@ void tm1637Display(char arr[4])
     _tm1637Stop();
 }
 
-
+/*
 void tm1637ShowLogo()
 {
-	/*
+
 	tm1637Display("A1  ");
 	wait(wt_long);
 	tm1637Display(" 1s "); //1s = is
 	wait(wt_long);
 	tm1637Display("1234");
 	wait(wt_long);
-	*/
+
 }
+
+*/
+
+
 
 
 // Valid brightness values: 0 - 8.

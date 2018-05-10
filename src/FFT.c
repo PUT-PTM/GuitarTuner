@@ -48,12 +48,13 @@ void FFT()
 	  {
 		  TC_find(&container, maxvalue, display);
 	  }
+
 	  tm1637Display(display);
 }
 
 void buffer_add(float32_t elem)
 {
-	if(buffer_input_length == BUFFER_INPUT_SIZE)
+	if(buffer_input_length >= BUFFER_INPUT_SIZE)
 	{
 		FFT();
 		buffer_input_length = 0;
