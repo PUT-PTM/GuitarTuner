@@ -36,6 +36,7 @@ void NVIC_init(void)
 	//W pierwszej kolejności należy uruchomić zasilanie systemu przerwań:
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1);
+	/*
 	{
 		NVIC_InitTypeDef NVIC_InitStructure;
 		// Configure the interrupt priority grouping
@@ -46,7 +47,7 @@ void NVIC_init(void)
 		NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 		NVIC_Init(&NVIC_InitStructure);
 	}
-
+*/
 	{
 		NVIC_InitTypeDef NVIC_InitStructure;
 		NVIC_InitStructure.NVIC_IRQChannel = ADC_IRQn;
@@ -143,7 +144,7 @@ void ADC_init()
 void GuitarTuner_init()
 {
 	tm1637Init();
-	tm1637Display("123a");
+
 	FFT_init();
 
 	TC_fill();
@@ -152,9 +153,9 @@ void GuitarTuner_init()
 
 	ADC_init();
 
-	NVIC_init(); //USER
+	NVIC_init(); //USER, ADC
 
-	EXTI_init(); //USER
+	//EXTI_init(); //USER
 
 	ADC_ITConfig(ADC1, ADC_IT_EOC, ENABLE);
 }

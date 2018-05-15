@@ -1,7 +1,7 @@
 #ifndef TM1637
 #define TM1637
 
-enum displayMode {tone, frequency};
+enum displayMode {Tone, Frequency};
 
 void int_to_string(int a,char arr[4]);
 

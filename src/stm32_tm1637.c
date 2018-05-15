@@ -16,7 +16,7 @@ void _tm1637ClkLow(void);
 void _tm1637DioHigh(void);
 void _tm1637DioLow(void);
 
-enum displayMode displayMode_ = tone;
+enum displayMode displayMode_ = Tone;
 /*
 enum waitTime {wt_short, wt_medium, wt_long};
 
@@ -77,6 +77,10 @@ void int_to_string(int a,char arr[4])
 			if (a!=0) arr[i]=a%10 +48; else arr[i]=' ';
 			a/=10;
 		}
+	}
+	else
+	{
+		charCopy(4,arr,"h1gh");
 	}
 }
 
@@ -149,9 +153,9 @@ void tm1637Display(char arr[4])
    		case '9': { digitArr[j]=0x6f; break;}
    		case ' ': {digitArr[j]=0x00 ; break;}
 
-   		case 'o': {digitArr[j]=0x92; break;}
+   		case 'o': {digitArr[j]=0x5C; break;}
    		case 'n': {digitArr[j]=0x84; break;}
-   		case 'r': {digitArr[j]=0x80; break;}
+   		case 'r': {digitArr[j]=0x50; break;}
    		//case 's': {digitArr[j]=0x109; break;}
 
    		case '-': {digitArr[j]=0x40; break;}

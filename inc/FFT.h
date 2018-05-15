@@ -9,15 +9,12 @@
 #ifndef FFT_H_
 #define FFT_H_
 
-
-#define BUFFER_INPUT_SIZE 1024
-
 void buffer_add(uint16_t elem);
 
 void FFT_init();
 
 //FFT and display result on tm1637
-void FFT();
+void FFT_go();
 
 
 #endif /* FFT_H_ */
