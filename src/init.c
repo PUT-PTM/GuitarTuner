@@ -79,6 +79,7 @@ void I2S_Configure(void)
 
 void NVIC_Configure(void)
 {
+
 	//Konfiguracja przerwań - przerwania zewnętrzne.
 	//W pierwszej kolejności należy uruchomić zasilanie systemu przerwań:
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);
@@ -109,7 +110,7 @@ void NVIC_Configure(void)
 		// wyczyszczenie przerwania adc1
 		ADC_ClearITPendingBit(ADC1, ADC_IT_EOC);
 		// zezwolenie na przerwania od adc1
-		ADC_ITConfig(ADC1, ADC_IT_EOC, ENABLE);
+
 	}
 
 }
@@ -191,25 +192,29 @@ void ADC_init()
 
 void init()
 {
+	FFT_init();
+
 	tm1637Init();
-	tm1637Display("   1");
+	//tm1637Display("   1");
 
 	GPIO_Configure(); //USER-BUTTON
-	tm1637Display("   2");
+	//tm1637Display("   2");
 
 	ADC_init();
-	tm1637Display("  25");
-#error tu skończyliśmy
+	//tm1637Display("  25");
+//#error tu skończyliśmy
 
 	NVIC_Configure(); //USER
-	tm1637Display("   3");
+	//tm1637Display("   3");
 
 	EXTI_init(); //USER
-	tm1637Display("   4");
+	//tm1637Display("   4");
 
-	FFT_init();
-	tm1637Display("   5");
+
+	//FFT_init();
+	//tm1637Display("   5");
 
 	//TC_fill(&container);
-	tm1637Display("   6");
+	//tm1637Display("   6");
+	ADC_ITConfig(ADC1, ADC_IT_EOC, ENABLE);
 }

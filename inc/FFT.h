@@ -12,7 +12,7 @@
 
 #define BUFFER_INPUT_SIZE 1024
 
-void buffer_add(float32_t elem);
+void buffer_add(uint16_t elem);
 
 void FFT_init();
 

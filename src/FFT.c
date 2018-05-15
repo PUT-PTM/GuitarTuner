@@ -31,14 +31,18 @@ void FFT_init()
 
 void FFT()
 {
+	//tm1637Display("afff");
 	  // transformata
-	  arm_rfft_f32(&S, buffer_input, buffer_output);
+	  //arm_rfft_f32(&S, buffer_input, buffer_output);
 	  // modu³y liczb
-	  arm_cmplx_mag_f32(buffer_output, buffer_output_mag,  BUFFER_INPUT_SIZE/2);
-	  // max
-	  arm_max_f32(&(buffer_output_mag[1]), BUFFER_INPUT_SIZE/2, &maxvalue, &maxvalueindex);
 
-	  // wypisz
+	  //arm_cmplx_mag_f32(buffer_output, buffer_output_mag,  BUFFER_INPUT_SIZE/2);
+	  // max
+	//  arm_max_f32(&(buffer_output_mag[1]), BUFFER_INPUT_SIZE/2, &maxvalue, &maxvalueindex);
+
+
+
+	  /*// wypisz
 	  char display[4];
 	  if(displayMode_ == frequency)
 	  {
@@ -50,11 +54,17 @@ void FFT()
 	  }
 
 	  tm1637Display(display);
+	  */
 }
 
-void buffer_add(float32_t elem)
+void buffer_add(uint16_t elem1)
 {
-	if(buffer_input_length >= BUFFER_INPUT_SIZE)
+
+	double elem2 = (double)elem1;
+
+	float32_t elem = (float32_t)elem2;
+
+	if(buffer_input_length == BUFFER_INPUT_SIZE)
 	{
 		FFT();
 		buffer_input_length = 0;

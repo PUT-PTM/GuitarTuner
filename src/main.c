@@ -28,6 +28,7 @@ void EXTI0_IRQHandler(void)
 	{
 		if(GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_0))
 		{
+			//while(1);
 			for(int i=0; i<0x100000;i++);
 			if(displayMode_ == tone)
 			{
@@ -46,14 +47,19 @@ void EXTI0_IRQHandler(void)
 void ADC_IRQHandler()
 {
 	//tm1637Display("_adc");
-	//if(ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC) == RESET)
-	//{
-		buffer_add((float32_t)ADC_GetConversionValue(ADC1));
-	//}
+	if(ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC) != RESET)
+	{
+		buffer_add(ADC_GetConversionValue(ADC1));
+
+		int x = ADC_GetConversionValue(ADC1);
+				char arr[4];
+				int_to_string(x, arr);
+				tm1637Display(arr);
+				for(int i=0;i<0x1000;i++);
+
+	}
 	ADC_ClearITPendingBit(ADC1,ADC_FLAG_EOC);//<--clear automatically
 }
-
-
 
 #include "init.h"
 #include "stm32_tm1637.h"
