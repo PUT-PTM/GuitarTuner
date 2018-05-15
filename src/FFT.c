@@ -9,13 +9,11 @@
 extern arm_rfft_instance_f32 S;
 extern arm_cfft_radix4_instance_f32 S_CFFT;
 
-toneContainer container;
-
 int buffer_input_length = 0;
-float32_t buffer_input[BUFFER_INPUT_SIZE];
-float32_t buffer_output[BUFFER_INPUT_SIZE];
-float32_t buffer_output_mag[BUFFER_INPUT_SIZE];
-float32_t maxvalue;
+double buffer_input[BUFFER_INPUT_SIZE];
+double buffer_output[BUFFER_INPUT_SIZE];
+double buffer_output_mag[BUFFER_INPUT_SIZE];
+double maxvalue;
 uint32_t  maxvalueindex;
 
 arm_rfft_instance_f32 S;
@@ -28,10 +26,11 @@ void FFT_init()
 
 void FFT()
 {
+	tm1637Display("ff1_");
 	  // transformata
-	  //arm_rfft_f32(&S, buffer_input, buffer_output);
+	  arm_rfft_f32(&S, buffer_input, buffer_output);
 	  // modu³y liczb
-
+	  tm1637Display("ff2_");
 	  //arm_cmplx_mag_f32(buffer_output, buffer_output_mag,  BUFFER_INPUT_SIZE/2);
 	  // max
 	//  arm_max_f32(&(buffer_output_mag[1]), BUFFER_INPUT_SIZE/2, &maxvalue, &maxvalueindex);
@@ -46,7 +45,7 @@ void FFT()
 	  }
 	  else
 	  {
-		  TC_find(&container, maxvalue, display);
+		  TC_find(maxvalue, display);
 	  }
 
 	  tm1637Display(display);
@@ -56,8 +55,6 @@ void FFT()
 void buffer_add(uint16_t elem1)
 {
 	double elem = (double)elem1;
-
-	//float32_t elem = (float32_t)elem2;
 
 	if(buffer_input_length == BUFFER_INPUT_SIZE)
 	{

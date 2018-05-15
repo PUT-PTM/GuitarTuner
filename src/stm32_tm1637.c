@@ -154,8 +154,8 @@ void tm1637Display(char arr[4])
    		case 'r': {digitArr[j]=0x80; break;}
    		//case 's': {digitArr[j]=0x109; break;}
 
-   		case '-': {digitArr[j]=0x64; break;}
-   		case '+': {digitArr[j]=0x70; break;}
+   		case '-': {digitArr[j]=0x40; break;}
+   		case '+': {digitArr[j]=0x46; break;}
    		case '_': {digitArr[j]=0x8; break;}
 
    		default : {digitArr[j]=0x2B; break;}

@@ -10,6 +10,6 @@
 #ifndef INIT_H_
 #define INIT_H_
 
-void init();
+void GuitarTuner_init();
 
 #endif /* INIT_H_ */

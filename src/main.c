@@ -55,7 +55,6 @@ void ADC_IRQHandler()
 				int_to_string(x, arr);
 				tm1637Display(arr);
 				for(int i=0;i<0x1000;i++);
-
 	}
 	ADC_ClearITPendingBit(ADC1,ADC_FLAG_EOC);//<--clear automatically
 }
@@ -65,18 +64,10 @@ void ADC_IRQHandler()
 
 int main(void)
 {
-	init();
+	GuitarTuner_init();
 
 	for(;;)
 	{
-		/*
-		ADC_SoftwareStartConv(ADC1);
-		while(ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC) == RESET);
-		int x = ADC_GetConversionValue(ADC1);
-		char arr[4];
-		int_to_string(x, arr);
-		tm1637Display(arr);
-		for(int i=0;i<0x1000000;i++);
-		*/
+
 	}
 }

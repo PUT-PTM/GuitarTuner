@@ -1,6 +1,5 @@
 #include "arm_math.h"
 
-
 #ifndef TC
 #define TC
 
@@ -23,12 +22,12 @@ typedef struct
 } toneContainer;
 
 
-void TC_append(toneContainer *tc, double ToneFrequency, char* display);
+void TC_append(int ToneFrequency, char* display);
 
-void TC_find(toneContainer *tc, double ToneFrequency, char* display);
+void TC_find(int ToneFrequency, char* display);
 
-void TC_init(toneContainer *TC);
+void TC_init();
 
-void TC_fill(toneContainer *TC);
+void TC_fill();
 
 #endif
