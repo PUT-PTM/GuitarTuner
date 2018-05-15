@@ -17,7 +17,6 @@
 #include "toneContainer.h"
 
 #undef __cplusplus
-extern float32_t maxvalue;
 
 extern enum displayMode displayMode_;
 
@@ -66,9 +65,8 @@ void ADC_IRQHandler()
 
 int main(void)
 {
-	//tm1637Init();
-
 	init();
+
 	for(;;)
 	{
 		/*

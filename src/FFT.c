@@ -9,9 +9,6 @@
 extern arm_rfft_instance_f32 S;
 extern arm_cfft_radix4_instance_f32 S_CFFT;
 
-extern toneContainer container;
-extern enum displayMode displayMode_;
-
 toneContainer container;
 
 int buffer_input_length = 0;
@@ -31,7 +28,6 @@ void FFT_init()
 
 void FFT()
 {
-	//tm1637Display("afff");
 	  // transformata
 	  //arm_rfft_f32(&S, buffer_input, buffer_output);
 	  // modu³y liczb
@@ -59,10 +55,9 @@ void FFT()
 
 void buffer_add(uint16_t elem1)
 {
+	double elem = (double)elem1;
 
-	double elem2 = (double)elem1;
-
-	float32_t elem = (float32_t)elem2;
+	//float32_t elem = (float32_t)elem2;
 
 	if(buffer_input_length == BUFFER_INPUT_SIZE)
 	{

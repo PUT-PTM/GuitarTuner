@@ -1,5 +1,7 @@
 #include "toneContainer.h"
 
+#include "stm32_tm1637.h"
+
 void charCopy(unsigned int n, char new[], char orig[])
 {
 	for(unsigned int i=0; i<n; i++)
@@ -8,36 +10,39 @@ void charCopy(unsigned int n, char new[], char orig[])
 	}
 }
 
-void TC_append(toneContainer * tc, float32_t Tone, char disp[])
+void TC_append(toneContainer * tc, double Tone, char* disp)
 {
-	tm1637Display(" 001");
+	tm1637Display("abb1");
+	while(1);
 	unsigned int size = tc->size;
-	tm1637Display(" 002");
+	tm1637Display("abb2");
 	if(size < TC_size)
 	{
+		tm1637Display("ab25");
 		if(tc->size==0)
 		{
-			tc->container[size].lowerBound = TC_MIN_FREQUENCY;
+			tc->container[size].lowerBound = (float32_t)TC_MIN_FREQUENCY;
 		}
 		else
 		{
-			float32_t temp = (tc->container[size-1].toneFrequency + tc->container[size].toneFrequency)/2;
+			double temp = (tc->container[size-1].toneFrequency + tc->container[size].toneFrequency)/2;
 			tc->container[size-1].upperBound = temp;
 			tc->container[size].lowerBound = temp;
 		}
-		tm1637Display(" 003");
+		tm1637Display("abb3");
 
-		tc->container[size].upperBound = TC_MAX_FREQUENCY;
-		tm1637Display(" 006");
-		tc->container[size].toneFrequency = Tone;
-		tm1637Display(" 007");
+		tc->container[size].upperBound = (float32_t)TC_MAX_FREQUENCY;
+		tm1637Display("abb4");
+		tc->container[size].toneFrequency = (float32_t)Tone;
+		tm1637Display("abb5");
 		charCopy(3,tc->container[size].display, disp);
-		tm1637Display(" 008");
+		tm1637Display("abb6");
 		tc->size++;
 	}
 }
 
-void TC_find(toneContainer * tc, float32_t Frequency, char disp[4])
+
+void TC_find(toneContainer * tc, double Frequency, char disp[4])
 {
 	for(int i=0;i<TC_size;i++)
 	{
@@ -78,11 +83,11 @@ void TC_init(toneContainer * tc)
 
 void TC_fill(toneContainer * tc)
 {
-	tm1637Display("  01");
-
+	tm1637Display("c__1");
 	TC_init(tc);
-	tm1637Display("  02");
 
+	tm1637Display("c__2");
+	TC_append(tc, "xx", "g   ");
 	TC_append(tc, 192.43, "g   ");
 	TC_append(tc, 203.88, "ab  ");
 	TC_append(tc, 216.00, "a   ");
@@ -123,5 +128,6 @@ void TC_fill(toneContainer * tc)
 	TC_append(tc, 1371.51, "f3  ");
 	TC_append(tc, 1453.07, "gb3 ");
 	TC_append(tc, 1539.47, "g3  ");
-	tm1637Display("  09");
+	tm1637Display("C__9");
+	while(1);
 }

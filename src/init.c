@@ -192,10 +192,11 @@ void ADC_init()
 
 void init()
 {
+	tm1637Init();
+
 	FFT_init();
 
-	tm1637Init();
-	//tm1637Display("   1");
+	TC_fill(&container);
 
 	GPIO_Configure(); //USER-BUTTON
 	//tm1637Display("   2");
@@ -214,7 +215,7 @@ void init()
 	//FFT_init();
 	//tm1637Display("   5");
 
-	//TC_fill(&container);
+
 	//tm1637Display("   6");
 	ADC_ITConfig(ADC1, ADC_IT_EOC, ENABLE);
 }
