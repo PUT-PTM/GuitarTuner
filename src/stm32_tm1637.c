@@ -83,6 +83,22 @@ void int_to_string(int a,char arr[4])
 	{arr[0]='0'; arr[1]='0'; arr[2]='0'; arr[3]='0';}
 }
 
+void int_to_string_8(int a,char arr[8])
+{
+	if (a > 0 && a<100000000)
+	{
+		for (int i=7;i>=0;i--)
+		{
+			if (a!=0) arr[i]=a%10 +48; else arr[i]=' ';
+			a/=10;
+		}
+	}
+	else if (a == 0)
+	{arr[0]=' '; arr[1]=' '; arr[2]=' '; arr[3]='0';}
+	else if(a >= 10000)
+	{arr[0]='0'; arr[1]='0'; arr[2]='0'; arr[3]='0';}
+}
+
 
 
 void tm1637DisplayDecimal(int v, int displaySeparator)

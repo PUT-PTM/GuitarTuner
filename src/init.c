@@ -172,11 +172,12 @@ void ADC_init()
 
 void TIM2_init()
 {
+	//40kHz
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
 	/* Time base configuration */
-	TIM_TimeBaseStructure.TIM_Period = 1;
-	TIM_TimeBaseStructure.TIM_Prescaler = 2624;
+	TIM_TimeBaseStructure.TIM_Period = 1; //16kHz: 1
+	TIM_TimeBaseStructure.TIM_Prescaler = 1049; //16kHz: 2624
 	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
 	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
 	TIM_TimeBaseInit(TIM2, &TIM_TimeBaseStructure);
