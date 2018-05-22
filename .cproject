@@ -91,7 +91,7 @@
 					</folderInfo>
 					<fileInfo id="fr.ac6.managedbuild.config.gnu.cross.exe.debug.1967340868.517397560" name="libPDMFilter_GCC.a" rcbsApplicability="disable" resourcePath="Utilities/libPDMFilter_GCC.a" toolsToInvoke=""/>
 					<sourceEntries>
-						<entry excluding="ARM|GCC|MatrixFunctions|FilteringFunctions|FastMathFunctions|ControllerFunctions|BasicMathFunctions|SupportFunctions" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="DSP"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="DSP"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="StdPeriph_Driver"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Utilities"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="inc"/>

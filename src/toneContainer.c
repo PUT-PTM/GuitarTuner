@@ -14,12 +14,9 @@ toneContainer tc;
 
 void TC_append(int Tone, char* disp)
 {
-	tm1637Display("abb1");
 	unsigned int size = tc.size;
-	tm1637Display("abb2");
 	if(size < TC_size)
 	{
-		tm1637Display("ab25");
 		if(tc.size==0)
 		{
 			tc.container[size].lowerBound = (double)TC_MIN_FREQUENCY;
@@ -30,14 +27,10 @@ void TC_append(int Tone, char* disp)
 			tc.container[size-1].upperBound = temp;
 			tc.container[size].lowerBound = temp;
 		}
-		tm1637Display("abb3");
 
 		tc.container[size].upperBound = (double)TC_MAX_FREQUENCY;
-		tm1637Display("abb4");
 		tc.container[size].toneFrequency = (double)((double)Tone);
-		tm1637Display("abb5");
 		charCopy(3,tc.container[size].display, disp);
-		tm1637Display("abb6");
 		tc.size++;
 	}
 }

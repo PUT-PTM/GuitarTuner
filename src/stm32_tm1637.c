@@ -65,22 +65,17 @@ void tm1637Init(void)
     GPIO_Init(DIO_PORT, &g);
 
     tm1637SetBrightness(8);
-    tm1637Display("+-  ");
 }
 
 void int_to_string(int a,char arr[4])
 {
-	if (a<10000)
+	if (a<=9999)
 	{
 		for (int i=3;i>=0;i--)
 		{
 			if (a!=0) arr[i]=a%10 +48; else arr[i]=' ';
 			a/=10;
 		}
-	}
-	else
-	{
-		charCopy(4,arr,"h1gh");
 	}
 }
 
@@ -186,12 +181,6 @@ void tm1637Display(char arr[4])
 void tm1637ShowLogo()
 {
 
-	tm1637Display("A1  ");
-	wait(wt_long);
-	tm1637Display(" 1s "); //1s = is
-	wait(wt_long);
-	tm1637Display("1234");
-	wait(wt_long);
 
 }
 
