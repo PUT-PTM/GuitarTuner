@@ -25,6 +25,8 @@
 
 extern enum displayMode displayMode_;
 
+uint16_t ADC_Output;
+
 void EXTI0_IRQHandler(void)
 {
 
@@ -50,17 +52,13 @@ void EXTI0_IRQHandler(void)
 
 void ADC_IRQHandler()
 {
+
 	if(ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC) != RESET)
 	{
-		buffer_add(ADC_GetConversionValue(ADC1));
-		/*
-		int x = ADC_GetConversionValue(ADC1);
-				char arr[4];
-				int_to_string(x, arr);
-				for(int i=0;i<0x1000;i++);
-				*/
+		ADC_Output = ADC_GetConversionValue(ADC1);
 	}
 }
+
 
 #include "init.h"
 #include "stm32_tm1637.h"
@@ -71,6 +69,13 @@ int main(void)
 
 	for(;;)
 	{
+		//Oraz programowe odczytanie i reset flagi przepe³nienia timera:
+		if(TIM_GetFlagStatus(TIM2, TIM_FLAG_Update))
+		{
+			buffer_add(ADC_Output);
+			//unsigned int counter = TIM2->CNT;
+			TIM_ClearFlag(TIM2, TIM_FLAG_Update);
+		}
 
 	}
 }

@@ -69,7 +69,7 @@ void tm1637Init(void)
 
 void int_to_string(int a,char arr[4])
 {
-	if (a<=9999)
+	if (a > 0 && a<10000)
 	{
 		for (int i=3;i>=0;i--)
 		{
@@ -77,7 +77,13 @@ void int_to_string(int a,char arr[4])
 			a/=10;
 		}
 	}
+	else if (a == 0)
+	{arr[0]=' '; arr[1]=' '; arr[2]=' '; arr[3]='0';}
+	else if(a >= 10000)
+	{arr[0]='0'; arr[1]='0'; arr[2]='0'; arr[3]='0';}
 }
+
+
 
 void tm1637DisplayDecimal(int v, int displaySeparator)
 {
@@ -107,19 +113,6 @@ void tm1637DisplayDecimal(int v, int displaySeparator)
     _tm1637Stop();
 }
 
-
-/*
- *
-const char segmentMap[] = {
-    0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7d, 0x07, // 0-7
-    0x7f, 0x6f, //8-9
-	0x77, 0x7c, 0x39, 0x5e, 0x79, 0x71, 0x3D, 0x76, // A-H,
-
-    0x00
-};
- * */
-
-//void tm1637Display(char arr[4], int displaySeparator)
 void tm1637Display(char arr[4])
 {
     unsigned char digitArr[4];

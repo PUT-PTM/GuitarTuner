@@ -31,9 +31,6 @@ void GPIO_init(void)
 
 void NVIC_init(void)
 {
-
-	//Konfiguracja przerwań - przerwania zewnętrzne.
-	//W pierwszej kolejności należy uruchomić zasilanie systemu przerwań:
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1);
 	/*
@@ -51,19 +48,13 @@ void NVIC_init(void)
 	{
 		NVIC_InitTypeDef NVIC_InitStructure;
 		NVIC_InitStructure.NVIC_IRQChannel = ADC_IRQn;
-		// priorytet główny
 		NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x00;
-		// subpriorytet
 		NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x00;
-		// uruchom dany kanał
 		NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-		// zapisz wypełnioną strukturę do rejestrów
 		NVIC_Init(&NVIC_InitStructure);
 
-		// wyczyszczenie przerwania adc1
 		ADC_ClearITPendingBit(ADC1, ADC_IT_EOC);
 	}
-
 }
 
 void EXTI_init()
@@ -82,6 +73,45 @@ void EXTI_init()
 
 	// podłączenie danego pinu portu do kontrolera przerwań
 	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOA, EXTI_PinSource0);
+}
+
+void UART_init()
+{
+	// wlaczenie taktowania wybranego portu
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
+	// wlaczenie taktowania wybranego układu USART
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART3, ENABLE);
+	// konfiguracja linii Rx i Tx
+	GPIO_InitTypeDef GPIO_InitStructure;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10 | GPIO_Pin_11;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(GPIOC, &GPIO_InitStructure);
+
+	// ustawienie funkcji alternatywnej dla pinów (USART)
+	GPIO_PinAFConfig(GPIOC, GPIO_PinSource10, GPIO_AF_USART3);
+	GPIO_PinAFConfig(GPIOC, GPIO_PinSource11, GPIO_AF_USART3);
+	USART_InitTypeDef USART_InitStructure;
+	// predkosc transmisji (mozliwe standardowe opcje: 9600, 19200, 38400, 57600, 115200, ...)
+	USART_InitStructure.USART_BaudRate = 9600;
+	// długość słowa (USART_WordLength_8b lub USART_WordLength_9b)
+	USART_InitStructure.USART_WordLength = USART_WordLength_8b;
+	// liczba bitów stopu (USART_StopBits_1, USART_StopBits_0_5, USART_StopBits_2, USART_StopBits_1_5)
+	USART_InitStructure.USART_StopBits = USART_StopBits_1;
+	// sprawdzanie parzystości (USART_Parity_No, USART_Parity_Even, USART_Parity_Odd)
+	USART_InitStructure.USART_Parity = USART_Parity_No;
+	// sprzętowa kontrola przepływu (USART_HardwareFlowControl_None, USART_HardwareFlowControl_RTS, USART_HardwareFlowControl_CTS, USART_HardwareFlowControl_RTS_CTS)
+	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+	// tryb nadawania/odbierania (USART_Mode_Rx, USART_Mode_Rx )
+	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
+
+	// konfiguracja
+	USART_Init(USART3, &USART_InitStructure);
+
+	// wlaczenie ukladu USART
+	USART_Cmd(USART3, ENABLE);
 }
 
 void ADC_init()
@@ -140,6 +170,18 @@ void ADC_init()
 	ADC_SoftwareStartConv(ADC1);
 }
 
+void TIM2_init()
+{
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
+	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
+	/* Time base configuration */
+	TIM_TimeBaseStructure.TIM_Period = 1;
+	TIM_TimeBaseStructure.TIM_Prescaler = 2624;
+	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
+	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+	TIM_TimeBaseInit(TIM2, &TIM_TimeBaseStructure);
+	TIM_Cmd(TIM2, ENABLE);
+}
 
 void GuitarTuner_init()
 {
@@ -148,6 +190,10 @@ void GuitarTuner_init()
 	FFT_init();
 
 	TC_fill();
+
+	TIM2_init();
+
+	UART_init();
 
 	GPIO_init(); //USER-BUTTON
 
