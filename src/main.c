@@ -35,7 +35,7 @@ void EXTI0_IRQHandler(void)
 		if(GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_0))
 		{
 			//while(1);
-			for(int i=0; i<0x100000;i++);
+			for(int i=0; i<0x100FFF;i++);
 			if(displayMode_ == Tone)
 			{
 				displayMode_ = Frequency;

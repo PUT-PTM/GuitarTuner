@@ -33,7 +33,7 @@ void NVIC_init(void)
 {
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1);
-	/*
+
 	{
 		NVIC_InitTypeDef NVIC_InitStructure;
 		// Configure the interrupt priority grouping
@@ -44,7 +44,7 @@ void NVIC_init(void)
 		NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 		NVIC_Init(&NVIC_InitStructure);
 	}
-*/
+
 	{
 		NVIC_InitTypeDef NVIC_InitStructure;
 		NVIC_InitStructure.NVIC_IRQChannel = ADC_IRQn;
@@ -172,17 +172,20 @@ void ADC_init()
 
 void TIM2_init()
 {
-	//40kHz
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
 	/* Time base configuration */
-	TIM_TimeBaseStructure.TIM_Period = 1; //16kHz: 1
-	TIM_TimeBaseStructure.TIM_Prescaler = 1049; //16kHz: 2624
+	TIM_TimeBaseStructure.TIM_Period = 349;
+	TIM_TimeBaseStructure.TIM_Prescaler = 99;
 	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
 	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
 	TIM_TimeBaseInit(TIM2, &TIM_TimeBaseStructure);
 	TIM_Cmd(TIM2, ENABLE);
 }
+
+
+
+
 
 void GuitarTuner_init()
 {
@@ -202,7 +205,7 @@ void GuitarTuner_init()
 
 	NVIC_init(); //USER, ADC
 
-	//EXTI_init(); //USER
+	EXTI_init(); //USER
 
 	ADC_ITConfig(ADC1, ADC_IT_EOC, ENABLE);
 }
