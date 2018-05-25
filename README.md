@@ -17,11 +17,13 @@ LED Display shows frequency of sound and name of tone with direction for tune ('
 
 | STM32F4 DISCOVERY | TM1637 LED Display | Analog Microphone | RGB LED |
 | --- | --- | --- | --- |
+
 You need also additional wires to connect the devices.
 
 ### Following additional software is required:
 | [CMSIS DSP Library](https://github.com/ARM-software/CMSIS) | [Library for TM1637](https://github.com/rogerdahl/stm32-tm1637) |
 | --- | --- |
+
 This software is included in this project.
 
 ## 4.How to run
@@ -53,12 +55,12 @@ Connect STM32 to PC using USB cable. Simply compile the project using IDE.
 | --- | --- |
 
 ## 8.License
-**GuitarTuner** is licensed under GNU GPL v3.0. Refer to [license.md](https://github.com/PUT-PTM/GuitarTuner/blob/master/license.md) for more. <br/><br/>
+**GuitarTuner** is licensed under GNU GPL v3.0. Refer to [license.md](https://github.com/PUT-PTM/GuitarTuner/blob/master/license.md) for more. <br/>
 
 **[CMSIS DSP Library](https://github.com/ARM-software/CMSIS)** is licensed under [license](https://github.com/ARM-software/CMSIS/blob/master/CMSIS/DSP_Lib/license.txt).
  <br/>
 
-[**Library for TM1637**](https://github.com/rogerdahl/stm32-tm1637/) is licensed under MIT License. <br/>
+**[Library for TM1637](https://github.com/rogerdahl/stm32-tm1637/)** is licensed under [MIT License](https://github.com/rogerdahl/stm32-tm1637/blob/master/LICENSE.md). <br/>
 
 ## 9.Credits
 
