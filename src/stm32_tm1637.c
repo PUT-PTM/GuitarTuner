@@ -5,7 +5,6 @@
 
 #include "stm32_tm1637.h"
 
-
 void _tm1637Start(void);
 void _tm1637Stop(void);
 void _tm1637ReadResult(void);
@@ -19,23 +18,12 @@ void _tm1637DioLow(void);
 enum displayMode displayMode_ = Tone;
 
 // Configuration.
-
 #define CLK_PORT GPIOC
 #define DIO_PORT GPIOC
 #define CLK_PIN GPIO_Pin_0
 #define DIO_PIN GPIO_Pin_1
 #define CLK_PORT_CLK_ENABLE __HAL_RCC_GPIOC_CLK_ENABLE
 #define DIO_PORT_CLK_ENABLE __HAL_RCC_GPIOC_CLK_ENABLE
-
-
-const char segmentMap[] = {
-    0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7d, 0x07, // 0-7
-    0x7f, 0x6f, //8-9
-	0x77, 0x7c, 0x39, 0x5e, 0x79, 0x71, 0x3D, 0x76, // A-H,
-
-    0x00
-};
-
 
 void tm1637Init(void)
 {

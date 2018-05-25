@@ -3,7 +3,6 @@
 #include "stm32f4_discovery.h"
 
 #include "FFT.h"
-#include "arm_const_structs.h"
 #include "toneContainer.h"
 #include "stm32_tm1637.h"
 
@@ -13,10 +12,10 @@
 
 extern enum displayMode displayMode_;
 
-double Input[SAMPLES];
-float32_t Input_f32[SAMPLES]; /*!< Input buffer is always 2 * FFT_SIZE */
-double Output_Mag_f32[FFT_SIZE];/*!< Output buffer is always FFT_SIZE */
-double MaxValue;           /*!< Max value in FTT result after calculation */
+double Input[SAMPLES]; /*!< Input buffer is always 2 * FFT_SIZE */
+float32_t Input_f32[SAMPLES];
+double Output_Mag_f32[FFT_SIZE]; /*!< Output buffer is always FFT_SIZE */
+double MaxValue; /*!< Max value in FTT result after calculation */
 uint32_t MaxIndex;
 
 uint16_t Count = 0;
