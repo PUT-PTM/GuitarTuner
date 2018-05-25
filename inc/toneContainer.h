@@ -21,7 +21,6 @@ typedef struct
 	toneNode container[TC_size];
 } toneContainer;
 
-
 void TC_append(int ToneFrequency, char* display);
 
 void TC_find(int ToneFrequency, char* display);

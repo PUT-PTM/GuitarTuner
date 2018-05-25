@@ -29,12 +29,11 @@ void TC_append(int Tone, char* disp)
 		}
 
 		tc.container[size].upperBound = (double)TC_MAX_FREQUENCY;
-		tc.container[size].toneFrequency = (double)((double)Tone);
+		tc.container[size].toneFrequency = (double)Tone;
 		charCopy(3,tc.container[size].display, disp);
 		tc.size++;
 	}
 }
-
 
 void TC_find(int f, char disp[4])
 {

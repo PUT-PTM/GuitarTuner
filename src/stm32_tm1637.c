@@ -17,19 +17,7 @@ void _tm1637DioHigh(void);
 void _tm1637DioLow(void);
 
 enum displayMode displayMode_ = Tone;
-/*
-enum waitTime {wt_short, wt_medium, wt_long};
 
-void wait(enum waitTime wt)
-{
-	int time;
-	if(wt == wt_short) time = 0x1000;
-	else if(wt == wt_medium) time = 0x10000;
-	else if(wt == wt_long) time = 0x10000;
-	for(int i=0;i<time;i++);
-}
-
-*/
 // Configuration.
 
 #define CLK_PORT GPIOC
@@ -52,8 +40,7 @@ const char segmentMap[] = {
 void tm1637Init(void)
 {
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC , ENABLE);
-	//CLK_PORT_CLK_ENABLE();
-    //DIO_PORT_CLK_ENABLE();
+
     GPIO_InitTypeDef g = {0};
     g.GPIO_PuPd = GPIO_PuPd_UP;
     g.GPIO_Mode = GPIO_Mode_OUT; // OD = open drain
@@ -99,36 +86,6 @@ void int_to_string_8(int a,char arr[8])
 	{arr[0]='0'; arr[1]='0'; arr[2]='0'; arr[3]='0';}
 }
 
-
-
-void tm1637DisplayDecimal(int v, int displaySeparator)
-{
-    unsigned char digitArr[4];
-    for (int i = 0; i < 4; ++i) {
-        digitArr[i] = segmentMap[v % 10];
-        if (i == 2 && displaySeparator) {
-            digitArr[i] |= 1 << 7;
-        }
-        v /= 10;
-    }
-
-    _tm1637Start();
-    _tm1637WriteByte(0x40);
-    _tm1637ReadResult();
-    _tm1637Stop();
-
-    _tm1637Start();
-    _tm1637WriteByte(0xc0);
-    _tm1637ReadResult();
-
-    for (int i = 0; i < 4; ++i) {
-        _tm1637WriteByte(digitArr[3 - i]);
-        _tm1637ReadResult();
-    }
-
-    _tm1637Stop();
-}
-
 void tm1637Display(char arr[4])
 {
     unsigned char digitArr[4];
@@ -136,39 +93,41 @@ void tm1637Display(char arr[4])
     for (int i=3;i>=0;i--)
     {
     	j = 3-i;
-    switch (arr[i]) {
-    	case 'a': { digitArr[j]=0x77; break;}
-   		case 'b': { digitArr[j]=0x7c; break;}
-  		case 'c': { digitArr[j]=0x39; break;}
-  		case 'd': { digitArr[j]=0x5e; break;}
-   		case 'e': { digitArr[j]=0x79; break;}
- 		case 'f': { digitArr[j]=0x71; break;}
- 		case 'g': { digitArr[j]=0x3D; break;}
-   		case 'h': { digitArr[j]=0x76; break;}
-   		case '0': { digitArr[j]=0x3f; break;}
-   		case '1': { digitArr[j]=0x06; break;}
-   		case '2': { digitArr[j]=0x5b; break;}
-   		case '3': { digitArr[j]=0x4f; break;}
-   		case '4': { digitArr[j]=0x66; break;}
-   		case '5': { digitArr[j]=0x6d; break;}
-   		case '6': { digitArr[j]=0x7d; break;}
-   		case '7': { digitArr[j]=0x07; break;}
-   		case '8': { digitArr[j]=0x7f; break;}
-   		case '9': { digitArr[j]=0x6f; break;}
-   		case ' ': {digitArr[j]=0x00 ; break;}
+		switch (arr[i])
+		{
+			case 'a': { digitArr[j]=0x77; break;}
+			case 'b': { digitArr[j]=0x7c; break;}
+			case 'c': { digitArr[j]=0x39; break;}
+			case 'd': { digitArr[j]=0x5e; break;}
+			case 'e': { digitArr[j]=0x79; break;}
+			case 'f': { digitArr[j]=0x71; break;}
+			case 'g': { digitArr[j]=0x3D; break;}
+			case 'h': { digitArr[j]=0x76; break;}
+			case '0': { digitArr[j]=0x3f; break;}
+			case '1': { digitArr[j]=0x06; break;}
+			case '2': { digitArr[j]=0x5b; break;}
+			case '3': { digitArr[j]=0x4f; break;}
+			case '4': { digitArr[j]=0x66; break;}
+			case '5': { digitArr[j]=0x6d; break;}
+			case '6': { digitArr[j]=0x7d; break;}
+			case '7': { digitArr[j]=0x07; break;}
+			case '8': { digitArr[j]=0x7f; break;}
+			case '9': { digitArr[j]=0x6f; break;}
+			case ' ': {digitArr[j]=0x00 ; break;}
 
-   		case 'o': {digitArr[j]=0x5C; break;}
-   		case 'n': {digitArr[j]=0x84; break;}
-   		case 'r': {digitArr[j]=0x50; break;}
-   		//case 's': {digitArr[j]=0x109; break;}
+			case 'o': {digitArr[j]=0x5C; break;}
+			case 'n': {digitArr[j]=0x84; break;}
+			case 'r': {digitArr[j]=0x50; break;}
+			case 's': {digitArr[j]=0x6d; break;}
 
-   		case '-': {digitArr[j]=0x40; break;}
-   		case '+': {digitArr[j]=0x46; break;}
-   		case '_': {digitArr[j]=0x8; break;}
+			case '-': {digitArr[j]=0x40; break;}
+			case '+': {digitArr[j]=0x46; break;}
+			case '_': {digitArr[j]=0x8; break;}
 
-   		default : {digitArr[j]=0x2B; break;}
+			default : {digitArr[j]=0x2B; break;}
+		}
     }
-    }
+
     _tm1637Start();
     _tm1637WriteByte(0x40);
     _tm1637ReadResult();
@@ -178,28 +137,14 @@ void tm1637Display(char arr[4])
     _tm1637WriteByte(0xc0);
     _tm1637ReadResult();
 
-    for (int i = 0; i < 4; ++i) {
+    for (int i = 0; i < 4; ++i)
+    {
         _tm1637WriteByte(digitArr[3 - i]);
         _tm1637ReadResult();
     }
-
     _tm1637Stop();
 }
 
-/*
-void tm1637ShowLogo()
-{
-
-
-}
-
-*/
-
-
-
-
-// Valid brightness values: 0 - 8.
-// 0 = display off.
 void tm1637SetBrightness(char brightness)
 {
     // Brightness command:
@@ -242,13 +187,6 @@ void _tm1637ReadResult(void)
     _tm1637ClkLow();
 }
 
-void testing() {
-	for (int i=0;i<8;i++) {
-		_tm1637ClkLow();
-		_tm1637DioHigh();
-	}
-}
-
 void _tm1637WriteByte(unsigned char b)
 {
     for (int i = 0; i < 8; ++i)
@@ -281,23 +219,19 @@ void _tm1637DelayUsec(unsigned int i)
 void _tm1637ClkHigh(void)
 {
     GPIO_SetBits(CLK_PORT, CLK_PIN);
-	//HAL_GPIO_WritePin(CLK_PORT, CLK_PIN, GPIO_PIN_SET);
 }
 
 void _tm1637ClkLow(void)
 {
 	GPIO_ResetBits(CLK_PORT, CLK_PIN);
-	//HAL_GPIO_WritePin(CLK_PORT, CLK_PIN, GPIO_PIN_RESET);
 }
 
 void _tm1637DioHigh(void)
 {
 	GPIO_SetBits(DIO_PORT, DIO_PIN);
-    //HAL_GPIO_WritePin(DIO_PORT, DIO_PIN, GPIO_PIN_SET);
 }
 
 void _tm1637DioLow(void)
 {
 	GPIO_ResetBits(DIO_PORT, DIO_PIN);
-	//HAL_GPIO_WritePin(DIO_PORT, DIO_PIN, GPIO_PIN_RESET);
 }
