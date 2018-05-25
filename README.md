@@ -35,19 +35,19 @@ This software is included in this project.
 
 **Connect pins as follows** <br/>
 
-| STM32F4 DISCOVERY | TM1637 LED Display | 
+| **STM32F4 DISCOVERY** | **TM1637 LED Display** | 
 | ----------------- | ------------------ |
 | 3.3V | VCC |
 | GND | GND |
 | CLK | PC0 |
 | DIO | PC1 |
-| STM32F4 DISCOVERY | Analog Microphone |
+| **STM32F4 DISCOVERY** | **Analog Microphone** |
 | 3.3V | VCC |
 | GND | GND |
 | PA1 | AOUT |
-| STM32F4 DISCOVERY | RGB LED |
+| **STM32F4 DISCOVERY** | **RGB LED** |
 | | |
-| STM32F4 DISCOVERY | USART Module |
+| **STM32F4 DISCOVERY** | **USART Module** |
 | GND | GND |
 | TXD | PC11 |
 | RXD | PC10 |
