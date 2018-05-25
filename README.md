@@ -33,9 +33,10 @@ This software is included in this project.
 ## 4.How to run
 ### 4.1 Wire Connections 
 
-| **Connect pins as follows** |
-| ----------------- | ------------------ |
+**Connect pins as follows** <br/>
+
 | STM32F4 DISCOVERY | TM1637 LED Display | 
+| ----------------- | ------------------ |
 | 3.3V | VCC |
 | GND | GND |
 | CLK | PC0 |
