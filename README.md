@@ -16,6 +16,7 @@ LED Display shows frequency of sound and name of tone with direction for tune ('
 ### Following hardware is required:
 
 | STM32F4 DISCOVERY | TM1637 LED Display | Analog Microphone | RGB LED |
+| --- | --- | --- | --- |
 
 You need also additional wires to connect the devices.
 
@@ -53,8 +54,8 @@ Connect STM32 to PC using USB cable. Simply compile the project using IDE.
 ### This project will no longer be supported
 
 ### Known issues
-- [x] **Use of float causes Hard Fault. Due to this double is used.**<br/>
-- [x] **Use of arm_cmplx_mag_f32 causes Hard Fault. Due to this arm_cmplx_mag_squared_f32 is used.** <br/>
+:x: **Use of float causes Hard Fault. Due to this double is used.**<br/>
+:x: **Use of arm_cmplx_mag_f32 causes Hard Fault. Due to this arm_cmplx_mag_squared_f32 is used.** <br/>
 
 ## 7.Attributions
 ### External libraries
