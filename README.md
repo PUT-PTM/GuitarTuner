@@ -76,10 +76,11 @@ Connect STM32 to PC using USB cable. Simply compile the project using IDE.
 
 ## 9.Credits
 
-| [Stanis�aw Wasik](https://github.com/st-wasik) | [Stanis�aw Gilewicz](https://github.com/forgut) |
+| [Stanisław Wasik](https://github.com/st-wasik) | [Stanisław Gilewicz](https://github.com/forgut) |
 | --- | --- | 
 
 
-The project was conducted during the Microprocessor Lab course held by the Institute of Control and Information Engineering, Poznan University of Technology. <br/> <br/>
-
+The project was conducted during the Microprocessor Lab course held by the Institute of Control and Information Engineering, Poznan University of Technology.
+<br/>
 Supervisor: Marek Kraft/Michał Fularz/Tomasz Mańkowski/Adam Bondyra
+
