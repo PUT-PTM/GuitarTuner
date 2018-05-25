@@ -19,6 +19,9 @@ Tuner accuracy is 2Hz.
 | STM32F4 DISCOVERY | TM1637 LED Display | Analog Microphone | RGB LED |
 | --- | --- | --- | --- |
 
+| USART Module - Only for Debug |
+| --- |
+
 You need also additional wires to connect the devices.
 
 ### Following additional software is required:
@@ -29,13 +32,25 @@ This software is included in this project.
 
 ## 4.How to run
 ### 4.1 Wire Connections 
-**Connect pins as follows**
-<br/>
 
-| STM32F4 DISCOVERY | TM1637 LED Display | 
+<br/>
+| **Connect pins as follows** |
 | ----------------- | ------------------ |
+| STM32F4 DISCOVERY | TM1637 LED Display | 
+| 3.3V | VCC |
+| GND | GND |
+| CLK | PC0 |
+| DIO | PC1 |
 | STM32F4 DISCOVERY | Analog Microphone |
+| 3.3V | VCC |
+| GND | GND |
+| PA1 | AOUT |
 | STM32F4 DISCOVERY | RGB LED |
+| | |
+| STM32F4 DISCOVERY | USART Module |
+| GND | GND |
+| TXD | PC11 |
+| RXD | PC10 |
 
 ### 4.2 IDE
 Use Eclipse for C/C++ Developers updated to STM32 Workbench.
