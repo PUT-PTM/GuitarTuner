@@ -15,7 +15,7 @@ LED Display shows frequency of sound and name of tone with direction for tune ('
 ## 3.Tools
 ### Following hardware is required:
 
-| STM32F4 DISCOVERY | TM1637 LED Display | Analog Microphone | RGB LED | <br/>
+| STM32F4 DISCOVERY | TM1637 LED Display | Analog Microphone | RGB LED |
 
 You need also additional wires to connect the devices.
 
