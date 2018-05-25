@@ -2,10 +2,6 @@
 
 ## Work in progress
 
-The project was conducted during the Microprocessor Lab course held by the Institute of Control and Information Engineering, Poznan University of Technology.
-
-Supervisor: Marek Kraft/Michał Fularz/Tomasz Mańkowski/Adam Bondyra
-
 ## 1.Overview
 This program is used for tuning instruments like Guitar. 
 LED Display shows frequency of sound and name of tone with direction for tune ('+' up, '-' down).
@@ -33,7 +29,7 @@ This software is included in this project.
 ## 4.How to run
 ### 4.1 Wire Connections 
 
-**Connect pins as follows** <br/>
+**Connect pins as follows:** <br/>
 
 | **STM32F4 DISCOVERY** | **TM1637 LED Display** | 
 | ----------------- | ------------------ |
@@ -80,4 +76,10 @@ Connect STM32 to PC using USB cable. Simply compile the project using IDE.
 
 ## 9.Credits
 
+| [Stanis�aw Wasik](https://github.com/st-wasik) | [Stanis�aw Gilewicz](https://github.com/forgut) |
+| --- | --- | 
 
+
+The project was conducted during the Microprocessor Lab course held by the Institute of Control and Information Engineering, Poznan University of Technology. <br/> <br/>
+
+Supervisor: Marek Kraft/Michał Fularz/Tomasz Mańkowski/Adam Bondyra
