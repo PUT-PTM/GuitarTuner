@@ -11,6 +11,7 @@ This program is used for tuning instruments like Guitar.
 LED Display shows frequency of sound and name of tone with direction for tune ('+' up, '-' down).
 
 ## 2.Description
+Tuner accuracy is 2Hz.
 
 ## 3.Tools
 ### Following hardware is required:
@@ -46,8 +47,8 @@ Connect STM32 to PC using USB cable. Simply compile the project using IDE.
 ### This project will no longer be supported
 
 ### Known issues
-:x: **Use of float causes Hard Fault. Due to this double is used.**<br/>
-:x: **Use of arm_cmplx_mag_f32 causes Hard Fault. Due to this arm_cmplx_mag_squared_f32 is used.** <br/>
+:x: **Use of `float` causes `Hard Fault`. Due to this `double` is used.**<br/>
+:x: **Use of `arm_cmplx_mag_f32` causes `Hard Fault`. Due to this `arm_cmplx_mag_squared_f32` is used.** <br/>
 
 ## 7.Attributions
 ### External libraries
