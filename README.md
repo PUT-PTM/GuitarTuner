@@ -23,9 +23,7 @@ You need also additional wires to connect the devices.
 ### Following additional software is required:
 (This software is included in this project files) <br/>
 
-| CMSIS DSP Library | [Link to the library.](https://github.com/ARM-software/CMSIS) |
-| --- | --- |
-| Library for TM1637 | [Link to the library.](https://github.com/rogerdahl/stm32-tm1637) |
+| [CMSIS DSP Library](https://github.com/ARM-software/CMSIS) | [Library for TM1637](https://github.com/rogerdahl/stm32-tm1637) |
 | --- | --- |
 ## 4.How to run
 ### 4.1 Wire Connections 
@@ -34,11 +32,8 @@ You need also additional wires to connect the devices.
 
 | STM32F4 DISCOVERY | TM1637 LED Display | 
 | ----------------- | ------------------ |
-|                   |                    |
-
 | STM32F4 DISCOVERY | Analog Microphone |
 | ----------------- | ------------------ |
-
 | STM32F4 DISCOVERY | RGB LED |
 | ----------------- | ------------------ |
 
@@ -63,13 +58,12 @@ Connect STM32 to PC using USB cable. Simply compile the project using IDE.
 [Library for TM1637] (https://github.com/rogerdahl/stm32-tm1637/) <br/>
 
 ## 8.License
-**GuitarTuner** is licensed under GNU GPL v3.0. Refer to (license.md)[https://github.com/PUT-PTM/GuitarTuner/blob/master/license.md] for more. <br/><br/>
+**GuitarTuner** is licensed under GNU GPL v3.0. Refer to [license.md](https://github.com/PUT-PTM/GuitarTuner/blob/master/license.md) for more. <br/><br/>
 
-**CMSIS DSP Library** is licensed under [license](https://github.com/ARM-software/CMSIS/blob/master/CMSIS/DSP_Lib/license.txt).
-[Link to the library.] (https://github.com/ARM-software/CMSIS) <br/><br/>
+**[CMSIS DSP Library](https://github.com/ARM-software/CMSIS)** is licensed under [license](https://github.com/ARM-software/CMSIS/blob/master/CMSIS/DSP_Lib/license.txt).
+ <br/>
 
-**Library for TM1637** is licensed under MIT License. 
-[Link to the library.] (https://github.com/rogerdahl/stm32-tm1637/) <br/>
+[**Library for TM1637**](https://github.com/rogerdahl/stm32-tm1637/) is licensed under MIT License. <br/>
 
 ## 9.Credits
 
