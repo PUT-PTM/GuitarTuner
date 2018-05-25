@@ -23,10 +23,10 @@ You need also additional wires to connect the devices.
 ### Following additional software is required:
 (This software is included in this project files) <br/>
 
-| CMSIS DSP Library | [Link to the library.] (https://github.com/ARM-software/CMSIS) |
-| --- |
-| Library for TM1637 | [Link to the library.] (https://github.com/rogerdahl/stm32-tm1637/) |
-
+| CMSIS DSP Library | [Link to the library.](https://github.com/ARM-software/CMSIS) |
+| --- | --- |
+| Library for TM1637 | [Link to the library.](https://github.com/rogerdahl/stm32-tm1637) |
+| --- | --- |
 ## 4.How to run
 ### 4.1 Wire Connections 
 **Connect pins as follows**
