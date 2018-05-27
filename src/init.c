@@ -46,7 +46,6 @@ void NVIC_init(void)
 
 	{
 		NVIC_InitTypeDef NVIC_InitStructure;
-		//------for USER button
 		NVIC_InitStructure.NVIC_IRQChannel = EXTI0_IRQn;
 		NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x05;
 		NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x00;

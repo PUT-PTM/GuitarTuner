@@ -23,7 +23,7 @@ typedef struct
 
 void TC_append(int ToneFrequency, char* display);
 
-void TC_find(int ToneFrequency, char* display);
+void TC_find(int ToneFrequency, char* display, uint16_t * Color);
 
 void TC_init();
 

@@ -41,7 +41,7 @@ void TC_append(int Tone, char* disp)
 	}
 }
 
-void TC_find(int f, char disp[4])
+void TC_find(int f, char disp[4], uint16_t * Color)
 {
 	double Frequency = (double)f;
 	for(int i=0;i<TC_size;i++)
@@ -53,7 +53,7 @@ void TC_find(int f, char disp[4])
 			if(Frequency < (tc.container[i].toneFrequency - TC_TuneMargin))
 			{
 				disp[3] = '-';
-				RGB_Red();
+				*Color = RED;
 			}
 			else if(Frequency > (tc.container[i].toneFrequency + TC_TuneMargin))
 			{
@@ -66,17 +66,18 @@ void TC_find(int f, char disp[4])
 				{
 					disp[3]='+';
 				}
-				RGB_Red();
+				*Color = RED;
 			}
 			else
 			{
 				disp[3]=' ';
-				RGB_Green();
+				*Color = GREEN;
 			}
 			return;
 		}
 	}
 	charCopy(4, disp, "none");
+	*Color = RED | GREEN | BLUE;
 }
 
 void TC_init()

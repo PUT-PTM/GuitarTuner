@@ -22,6 +22,12 @@ void wait_ms(uint16_t ms)
 	WAIT_Counter = 0;
 }
 
+void RGB(uint16_t Color)
+{
+	GPIO_ResetBits(GPIOB, GPIO_Pin_8 | GPIO_Pin_7 | GPIO_Pin_5);
+	GPIO_SetBits(GPIOB, Color);
+}
+
 void RGB_Red()
 {
 	GPIO_ResetBits(GPIOB, GPIO_Pin_8 | GPIO_Pin_5);

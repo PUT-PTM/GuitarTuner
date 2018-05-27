@@ -14,7 +14,7 @@ Tuner accuracy is 2Hz.
 | STM32F4 DISCOVERY | TM1637 LED Display | Analog Microphone | RGB LED |
 | --- | --- | --- | --- |
 
-| USART Module - Only for Debug |
+| USART Module - For Debug Only |
 | --- |
 
 You need also additional wires to connect the devices.

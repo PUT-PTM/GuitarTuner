@@ -16,6 +16,7 @@ extern enum displayMode displayMode_;
 double Input[SAMPLES]; /*!< Input buffer is always 2 * FFT_SIZE */
 float32_t Input_f32[SAMPLES];
 double Output_Mag_f32[FFT_SIZE]; /*!< Output buffer is always FFT_SIZE */
+
 double MaxValue; /*!< Max value in FTT result after calculation */
 uint32_t MaxIndex;
 
@@ -35,7 +36,7 @@ void buffer_add(uint16_t elem)
 	{
 		Count = 0;
 
-		//FFT
+		//FFT init
 		arm_cfft_radix4_instance_f32 S;
 		arm_cfft_radix4_init_f32(&S, FFT_SIZE, 0, 1);
 
@@ -44,30 +45,36 @@ void buffer_add(uint16_t elem)
 			Input_f32[i] = (float)Input[i];
 		}
 
+		//FFT
 		arm_cfft_radix4_f32(&S, Input_f32);
 		Input_f32[0] = 0; //rubbish value in first cell
 
+		//Magnitude
 		arm_cmplx_mag_squared_f32(Input_f32, Output_Mag_f32, FFT_SIZE);
 		Output_Mag_f32[0] = 0; //rubbish value in first cell
 
+		//Max value (frequency)
 		arm_max_f32(Output_Mag_f32, FFT_SIZE/2, &MaxValue, &MaxIndex);
 
-		 frequency = (double)MaxIndex * (double)SAMPLE_FREQ / (double)FFT_SIZE ;
+		frequency = (double)MaxIndex * (double)SAMPLE_FREQ / (double)FFT_SIZE ;
 
-		 char display[4] = {0};
-		 /*if(MaxValue < 7.0E9)
-		 	 { display[0] = '_'; display[1] = '_'; display[2] = '_'; display[3] = '_';}
-		 else */
-		 if(displayMode_ == Tone)
-		 {
-			TC_find(frequency,display);
-		 }
-		 else
-		 {
-			RGB_Blue();
+		//display
+		char display[4] = {0};
+		uint16_t Color = 0;
+		TC_find(frequency,display, &Color);
+
+		if(displayMode_ == Tone)
+		{
+
+		}
+		else
+		{
+			Color |= BLUE;
 			int_to_string(frequency, display);
-		 }
-		 tm1637Display(display);
+		}
+		RGB(Color);
+
+		tm1637Display(display);
 	}
 }
 
