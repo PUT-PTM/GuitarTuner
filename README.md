@@ -3,8 +3,7 @@
 ## Work in progress
 
 ## 1.Overview
-This program is used for tuning instruments like Guitar. 
-LED Display shows frequency of sound and name of tone with direction for tune ('+' up, '-' down).
+This program is used for tuning instruments like Guitar. LED Display shows frequency of sound and name of tone with direction for tune ('-' up, '+' down).
 
 ## 2.Description
 Tuner accuracy is 2Hz.
@@ -25,6 +24,9 @@ You need also additional wires to connect the devices.
 | --- | --- |
 
 This software is included in this project.
+
+| [Hercules by HW-group.com](https://www.hw-group.com/products/hercules/index_en.html) | For USART Debug Only |
+| --- | --- |
 
 ## 4.How to run
 ### 4.1 Wire Connections 
