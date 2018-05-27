@@ -7,7 +7,7 @@
 #define TC_TuneMargin 2.0
 
 #define TC_MIN_FREQUENCY 0.0
-#define TC_MAX_FREQUENCY 16000.0
+#define TC_MAX_FREQUENCY 2400.0
 
 typedef struct
 {
@@ -28,5 +28,7 @@ void TC_find(int ToneFrequency, char* display);
 void TC_init();
 
 void TC_fill();
+
+void TC_show();
 
 #endif

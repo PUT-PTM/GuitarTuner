@@ -16,17 +16,29 @@
 
 void GPIO_init(void)
 {
-	GPIO_InitTypeDef GPIO_InitStructure;
-
 	//USER button
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
+	{
+		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
+		GPIO_InitTypeDef GPIO_InitStructure;
+		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
+		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+		GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+		GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
+		GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+		GPIO_Init(GPIOA, &GPIO_InitStructure);
+	}
 
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
-	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-	GPIO_Init(GPIOA, &GPIO_InitStructure);
+	//RGB
+	{
+		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
+		GPIO_InitTypeDef GPIO_InitStructure;
+		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7 | GPIO_Pin_8;
+		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+		GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+		GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
+		GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+		GPIO_Init(GPIOB, &GPIO_InitStructure);
+	}
 }
 
 void NVIC_init(void)
@@ -54,6 +66,28 @@ void NVIC_init(void)
 
 		ADC_ClearITPendingBit(ADC1, ADC_IT_EOC);
 	}
+
+	{
+		NVIC_InitTypeDef NVIC_InitStructure;
+		NVIC_InitStructure.NVIC_IRQChannel = TIM2_IRQn;
+		NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x00;
+		NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x00;
+		NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+		NVIC_Init(&NVIC_InitStructure);
+
+		TIM_ClearITPendingBit(TIM2, TIM_IT_Update);
+	}
+
+	{
+			NVIC_InitTypeDef NVIC_InitStructure;
+			NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;
+			NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x00;
+			NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x00;
+			NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+			NVIC_Init(&NVIC_InitStructure);
+
+			TIM_ClearITPendingBit(TIM3, TIM_IT_Update);
+		}
 }
 
 void EXTI_init()
@@ -145,23 +179,40 @@ void TIM2_init()
 	TIM_Cmd(TIM2, ENABLE);
 }
 
+void TIM3_init()
+{
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);
+	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
+	TIM_TimeBaseStructure.TIM_Period = 83;
+	TIM_TimeBaseStructure.TIM_Prescaler = 999;
+	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
+	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+	TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure);
+}
+
 void GuitarTuner_init()
 {
 	tm1637Init();
 
 	TIM2_init();
 
+	TIM3_init();
+
 	USART_init();
 
-	GPIO_init(); //USER-BUTTON
+	GPIO_init(); //USER-BUTTON, RGB
 
 	ADC_init();
 
-	NVIC_init(); //USER, ADC
+	NVIC_init(); //USER-BUTTON, ADC, TIM2, TIM3
 
-	EXTI_init(); //USER
+	EXTI_init(); //USER-BUTTON
 
 	TC_fill();
 
 	ADC_ITConfig(ADC1, ADC_IT_EOC, ENABLE);
+
+	TIM_ITConfig(TIM2, TIM_IT_Update, ENABLE);
+
+	TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE);
 }

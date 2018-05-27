@@ -75,14 +75,39 @@ void buffer_add(uint16_t elem)
 		 frequency = (double)MaxIndex * (double)SAMPLE_FREQ / (double)FFT_SIZE ;
 
 		 char display[4] = {0};
+		 /*if(MaxValue < 7.0E9)
+		 	 { display[0] = '_'; display[1] = '_'; display[2] = '_'; display[3] = '_';}
+		 else */
 		 if(displayMode_ == Tone)
 		 {
-			 TC_find(frequency,display);
+			TC_find(frequency,display);
 		 }
 		 else
 		 {
-			 int_to_string(frequency, display);
+			int_to_string(frequency, display);
 		 }
 		 tm1637Display(display);
 	}
+}
+
+extern uint16_t WAIT_Counter;
+
+void wait_ms(uint16_t ms)
+{
+	WAIT_Counter = 0;
+	TIM_Cmd(TIM3, ENABLE);
+	while(WAIT_Counter < ms);
+	TIM_Cmd(TIM3, DISABLE);
+}
+
+void RGB_Red()
+{
+	GPIO_ResetBits(GPIOB, GPIO_Pin_8);
+	GPIO_SetBits(GPIOB, GPIO_Pin_7);
+}
+
+void RGB_Green()
+{
+	GPIO_ResetBits(GPIOB, GPIO_Pin_7);
+	GPIO_SetBits(GPIOB, GPIO_Pin_8);
 }

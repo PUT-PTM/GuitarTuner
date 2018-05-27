@@ -56,6 +56,7 @@ void TC_find(int f, char disp[4])
 			if(Frequency < (tc.container[i].toneFrequency - TC_TuneMargin))
 			{
 				disp[3] = '-';
+				RGB_Red();
 			}
 			else if(Frequency > (tc.container[i].toneFrequency + TC_TuneMargin))
 			{
@@ -68,10 +69,12 @@ void TC_find(int f, char disp[4])
 				{
 					disp[3]='+';
 				}
+				RGB_Red();
 			}
 			else
 			{
 				disp[3]=' ';
+				RGB_Green();
 			}
 			return;
 		}
@@ -124,19 +127,22 @@ void TC_fill()
 	TC_append(1088.57, "db3 ");
 	TC_append(1153.30, "d3  ");
 
-	for(int i=0;i<tc.size;i++)
-	{
-		low = tc.container[i].lowerBound;
-		tone = tc.container[i].toneFrequency;
-		up = tc.container[i].upperBound;
-		USART_send_array("\n\nlow:",5);
-		USART_send_int(&low,1);
-		USART_send_array("\ntone:",6);
-		USART_send_int(&tone,1);
-		USART_send_array("  ",2);
-		USART_send_array(tc.container[i].display,3);
-		USART_send_array("\nup:",4);
-		USART_send_int(&up,1);
-	}
+}
 
+void TC_show()
+{
+	for(int i=0;i<tc.size;i++)
+		{
+			low = tc.container[i].lowerBound;
+			tone = tc.container[i].toneFrequency;
+			up = tc.container[i].upperBound;
+			USART_send_array("\n\nlow:",5);
+			USART_send_int(&low,1);
+			USART_send_array("\ntone:",6);
+			USART_send_int(&tone,1);
+			USART_send_array("  ",2);
+			USART_send_array(tc.container[i].display,3);
+			USART_send_array("\nup:",4);
+			USART_send_int(&up,1);
+		}
 }
