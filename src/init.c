@@ -149,11 +149,9 @@ void GuitarTuner_init()
 {
 	tm1637Init();
 
-	TC_fill();
-
 	TIM2_init();
 
-	UART_init();
+	USART_init();
 
 	GPIO_init(); //USER-BUTTON
 
@@ -162,6 +160,8 @@ void GuitarTuner_init()
 	NVIC_init(); //USER, ADC
 
 	EXTI_init(); //USER
+
+	TC_fill();
 
 	ADC_ITConfig(ADC1, ADC_IT_EOC, ENABLE);
 }

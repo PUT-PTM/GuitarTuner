@@ -11,4 +11,6 @@ void tm1637Init(void);
 
 void tm1637Display(char arr[4]);
 
+void tm1637DisplayInt(int value);
+
 #endif

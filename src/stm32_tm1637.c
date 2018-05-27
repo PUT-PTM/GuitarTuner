@@ -133,6 +133,13 @@ void tm1637Display(char arr[4])
     _tm1637Stop();
 }
 
+void tm1637DisplayInt(int value)
+{
+	char arr[4];
+	int_to_string(value, arr);
+	tm1637Display(arr);
+}
+
 void tm1637SetBrightness(char brightness)
 {
     // Brightness command:

@@ -4,7 +4,7 @@
 #define TC
 
 #define TC_size 64
-#define TC_TuneMargin 0.1
+#define TC_TuneMargin 2.0
 
 #define TC_MIN_FREQUENCY 0.0
 #define TC_MAX_FREQUENCY 16000.0

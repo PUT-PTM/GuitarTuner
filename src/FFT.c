@@ -19,9 +19,9 @@ double MaxValue; /*!< Max value in FTT result after calculation */
 uint32_t MaxIndex;
 
 uint16_t Count = 0;
-int frequency = 0;
+double frequency = 0;
 
-void UART_send_array(char * array, uint32_t size)
+void USART_send_array(char * array, uint32_t size)
 {
 	for(int i=0;i<size;i++)
 	{
@@ -31,14 +31,14 @@ void UART_send_array(char * array, uint32_t size)
 	}
 }
 
-void UART_send_int(int * arr, uint32_t size)
+void USART_send_int(int * arr, uint32_t size)
 {
 	for(int i=0;i<size;i++)
 	{
 		char display[8]= {0};
 		int_to_string_8((int)arr[i],display);
-		UART_send_array(display, 8);
-		UART_send_array("_", 1);
+		USART_send_array(display, 8);
+		USART_send_array("_", 1);
 	}
 }
 
@@ -72,8 +72,7 @@ void buffer_add(uint16_t elem)
 
 		arm_max_f32(Output_Mag_f32, FFT_SIZE/2, &MaxValue, &MaxIndex);
 
-		 double smplRate = (FFT_SIZE / 1.0);
-		 frequency = (double)((MaxIndex * SAMPLE_FREQ) / smplRate);
+		 frequency = (double)MaxIndex * (double)SAMPLE_FREQ / (double)FFT_SIZE ;
 
 		 char display[4] = {0};
 		 if(displayMode_ == Tone)

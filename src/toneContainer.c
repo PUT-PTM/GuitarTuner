@@ -1,6 +1,11 @@
 #include "toneContainer.h"
 
+int low ;
+int tone;
+int up;
+
 #include "stm32_tm1637.h"
+#include "FFT.h"
 
 void charCopy(unsigned int n, char new[], char orig[])
 {
@@ -17,20 +22,24 @@ void TC_append(int Tone, char* disp)
 	unsigned int size = tc.size;
 	if(size < TC_size)
 	{
+		tc.container[size].toneFrequency = (double)Tone;
+		tc.container[size].upperBound = (double)TC_MAX_FREQUENCY;
+		charCopy(3,tc.container[size].display, disp);
+
 		if(tc.size==0)
 		{
 			tc.container[size].lowerBound = (double)TC_MIN_FREQUENCY;
 		}
 		else
 		{
-			double temp = (tc.container[size-1].toneFrequency + tc.container[size].toneFrequency)/2;
+			double lowerTone = tc.container[size-1].toneFrequency;
+			double currentTone = tc.container[size].toneFrequency;
+			double temp = (lowerTone+currentTone)/2;
+
 			tc.container[size-1].upperBound = temp;
 			tc.container[size].lowerBound = temp;
 		}
 
-		tc.container[size].upperBound = (double)TC_MAX_FREQUENCY;
-		tc.container[size].toneFrequency = (double)Tone;
-		charCopy(3,tc.container[size].display, disp);
 		tc.size++;
 	}
 }
@@ -44,11 +53,11 @@ void TC_find(int f, char disp[4])
 		{
 			charCopy(3, disp, tc.container[i].display);
 
-			if(Frequency < (tc.container[i].toneFrequency - tc.container[i].toneFrequency*TC_TuneMargin))
+			if(Frequency < (tc.container[i].toneFrequency - TC_TuneMargin))
 			{
 				disp[3] = '-';
 			}
-			else if(Frequency > (tc.container[i].toneFrequency + tc.container[i].toneFrequency*TC_TuneMargin))
+			else if(Frequency > (tc.container[i].toneFrequency + TC_TuneMargin))
 			{
 				if(disp[2]==' ')
 				{
@@ -79,11 +88,11 @@ void TC_fill()
 {
 	TC_init(tc);
 
-	TC_append( 192, "g   ");
-	TC_append( 203, "ab  ");
-	TC_append( 216, "a   ");
-	TC_append( 228, "b   ");
-	TC_append( 242, "h   ");
+	TC_append( 192.43, "g   ");
+	TC_append( 203.88, "ab  ");
+	TC_append( 216.00, "a   ");
+	TC_append( 228.33, "b   ");
+	TC_append( 242.45, "h   ");
 
 	TC_append(256.87, "c1  ");
 	TC_append(272.14, "db1 ");
@@ -114,9 +123,20 @@ void TC_fill()
 	TC_append(1027.47, "c3  ");
 	TC_append(1088.57, "db3 ");
 	TC_append(1153.30, "d3  ");
-	TC_append(1221.88, "eb3 ");
-	TC_append(1294.54, "e3  ");
-	TC_append(1371.51, "f3  ");
-	TC_append(1453.07, "gb3 ");
-	TC_append(1539.47, "g3  ");
+
+	for(int i=0;i<tc.size;i++)
+	{
+		low = tc.container[i].lowerBound;
+		tone = tc.container[i].toneFrequency;
+		up = tc.container[i].upperBound;
+		USART_send_array("\n\nlow:",5);
+		USART_send_int(&low,1);
+		USART_send_array("\ntone:",6);
+		USART_send_int(&tone,1);
+		USART_send_array("  ",2);
+		USART_send_array(tc.container[i].display,3);
+		USART_send_array("\nup:",4);
+		USART_send_int(&up,1);
+	}
+
 }

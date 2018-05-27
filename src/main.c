@@ -19,6 +19,7 @@
 
 #include "FFT.h"
 #include "init.h"
+#include "stm32_tm1637.h"
 
 #undef __cplusplus
 
@@ -26,7 +27,6 @@
 extern enum displayMode displayMode_;
 
 uint16_t ADC_Output;
-
 
 void EXTI0_IRQHandler(void)
 {
@@ -59,6 +59,8 @@ void ADC_IRQHandler()
 int main(void)
 {
 	GuitarTuner_init();
+
+
 
 	for(;;)
 	{
