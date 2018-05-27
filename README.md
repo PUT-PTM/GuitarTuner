@@ -19,11 +19,13 @@ Tuner accuracy is 2Hz.
 
 You need also additional wires to connect the devices.
 
-### Following additional software is required:
+### Following additional libraries are required:
 | [CMSIS DSP Library](https://github.com/ARM-software/CMSIS) | [Library for TM1637](https://github.com/rogerdahl/stm32-tm1637) |
 | --- | --- |
 
-This software is included in this project.
+Libraries are included in this project.
+
+### Following additional software is required:
 
 | [Hercules by HW-group.com](https://www.hw-group.com/products/hercules/index_en.html) | For USART Debug Only |
 | --- | --- |
