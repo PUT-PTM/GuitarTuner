@@ -11,14 +11,4 @@
 
 void buffer_add(uint16_t elem);
 
-void USART_send_array(char * array, uint32_t size);
-
-void USART_send_int(int * arr, uint32_t size);
-
-void wait_ms(uint16_t ms);
-
-void RGB_Red();
-
-void RGB_Green();
-
 #endif /* FFT_H_ */

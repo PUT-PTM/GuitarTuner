@@ -11,6 +11,7 @@
 #include "FFT.h"
 #include "init.h"
 #include "stm32_tm1637.h"
+#include "additional_functions.h"
 
 extern enum displayMode displayMode_;
 
@@ -20,9 +21,10 @@ void EXTI0_IRQHandler(void)
 {
 	if(EXTI_GetITStatus(EXTI_Line0) != RESET)
 	{
-		wait_ms(20); //debounce
 		if(GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_0))
 		{
+			//for(int i=0;i<0x100FFF;i++);
+			wait_ms(100u); //debounce
 			if(displayMode_ == Tone)
 			{
 				displayMode_ = Frequency;
@@ -53,9 +55,7 @@ void TIM2_IRQHandler()
 	}
 }
 
-
-
-uint16_t WAIT_Counter = 0;
+extern uint16_t WAIT_Counter;
 
 void TIM3_IRQHandler()
 {

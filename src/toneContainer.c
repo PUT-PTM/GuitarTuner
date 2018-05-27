@@ -1,11 +1,8 @@
 #include "toneContainer.h"
 
-int low ;
-int tone;
-int up;
-
 #include "stm32_tm1637.h"
 #include "FFT.h"
+#include "additional_functions.h"
 
 void charCopy(unsigned int n, char new[], char orig[])
 {
@@ -131,6 +128,7 @@ void TC_fill()
 
 void TC_show()
 {
+	int low, tone, up;
 	for(int i=0;i<tc.size;i++)
 		{
 			low = tc.container[i].lowerBound;

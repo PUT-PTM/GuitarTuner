@@ -49,6 +49,7 @@ Libraries are included in this project.
 | GND | GND |
 | PB7 | R |
 | PB8 | G |
+| PB5 | B |
 | **STM32F4 DISCOVERY** | **USART Module** |
 | GND | GND |
 | TXD | PC11 |

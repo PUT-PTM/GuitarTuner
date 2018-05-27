@@ -7,11 +7,9 @@
 
 #include "stm32f4xx.h"
 #include "stm32f4_discovery.h"
-#include "pdm_filter.h"
 
 #include "stm32_tm1637.h"
 #include "init.h"
-#include "FFT.h"
 #include "toneContainer.h"
 
 void GPIO_init(void)
@@ -32,7 +30,7 @@ void GPIO_init(void)
 	{
 		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
 		GPIO_InitTypeDef GPIO_InitStructure;
-		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7 | GPIO_Pin_8;
+		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5 | GPIO_Pin_7 | GPIO_Pin_8;
 		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
 		GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
 		GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
@@ -50,7 +48,7 @@ void NVIC_init(void)
 		NVIC_InitTypeDef NVIC_InitStructure;
 		//------for USER button
 		NVIC_InitStructure.NVIC_IRQChannel = EXTI0_IRQn;
-		NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x00;
+		NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x05;
 		NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x00;
 		NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 		NVIC_Init(&NVIC_InitStructure);
@@ -59,7 +57,7 @@ void NVIC_init(void)
 	{
 		NVIC_InitTypeDef NVIC_InitStructure;
 		NVIC_InitStructure.NVIC_IRQChannel = ADC_IRQn;
-		NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x00;
+		NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x05;
 		NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x00;
 		NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 		NVIC_Init(&NVIC_InitStructure);
@@ -70,7 +68,7 @@ void NVIC_init(void)
 	{
 		NVIC_InitTypeDef NVIC_InitStructure;
 		NVIC_InitStructure.NVIC_IRQChannel = TIM2_IRQn;
-		NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x00;
+		NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x05;
 		NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x00;
 		NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 		NVIC_Init(&NVIC_InitStructure);
@@ -79,15 +77,15 @@ void NVIC_init(void)
 	}
 
 	{
-			NVIC_InitTypeDef NVIC_InitStructure;
-			NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;
-			NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x00;
-			NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x00;
-			NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-			NVIC_Init(&NVIC_InitStructure);
+		NVIC_InitTypeDef NVIC_InitStructure;
+		NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;
+		NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x00;
+		NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x00;
+		NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+		NVIC_Init(&NVIC_InitStructure);
 
-			TIM_ClearITPendingBit(TIM3, TIM_IT_Update);
-		}
+		TIM_ClearITPendingBit(TIM3, TIM_IT_Update);
+	}
 }
 
 void EXTI_init()
@@ -179,6 +177,7 @@ void TIM2_init()
 	TIM_Cmd(TIM2, ENABLE);
 }
 
+// For wait_ms function
 void TIM3_init()
 {
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);
@@ -194,9 +193,9 @@ void GuitarTuner_init()
 {
 	tm1637Init();
 
-	TIM2_init();
+	TIM2_init(); // Sampling Frequency
 
-	TIM3_init();
+	TIM3_init(); // For wait_ms function
 
 	USART_init();
 
