@@ -42,7 +42,9 @@ This software is included in this project.
 | GND | GND |
 | PA1 | AOUT |
 | **STM32F4 DISCOVERY** | **RGB LED** |
-| | |
+| GND | GND |
+| PB7 | R |
+| PB8 | G |
 | **STM32F4 DISCOVERY** | **USART Module** |
 | GND | GND |
 | TXD | PC11 |
