@@ -35,8 +35,8 @@ This software is included in this project.
 | ----------------- | ------------------ |
 | 3.3V | VCC |
 | GND | GND |
-| CLK | PC0 |
-| DIO | PC1 |
+| PC0 | CLK |
+| PC1 | DIO |
 | **STM32F4 DISCOVERY** | **Analog Microphone** |
 | 3.3V | VCC |
 | GND | GND |
