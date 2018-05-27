@@ -27,7 +27,9 @@ void TC_find(int ToneFrequency, char* display, uint16_t * Color);
 
 void TC_init();
 
-void TC_fill();
+void TC_fill_432();
+
+void TC_fill_440();
 
 void TC_show();
 

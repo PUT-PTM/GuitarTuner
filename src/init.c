@@ -206,7 +206,7 @@ void GuitarTuner_init()
 
 	EXTI_init(); //USER-BUTTON
 
-	TC_fill();
+	TC_fill_440();
 
 	ADC_ITConfig(ADC1, ADC_IT_EOC, ENABLE);
 

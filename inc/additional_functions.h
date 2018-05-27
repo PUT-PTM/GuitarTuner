@@ -30,4 +30,6 @@ void RGB_Green();
 
 void RGB_Blue();
 
+void charCopy(unsigned int n, char new[], char orig[]);
+
 #endif /* ADDITIONAL_FUNCTIONS_H_ */

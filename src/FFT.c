@@ -60,20 +60,25 @@ void buffer_add(uint16_t elem)
 
 		//display
 		char display[4] = {0};
+
 		uint16_t Color = 0;
 		TC_find(frequency,display, &Color);
 
-		if(displayMode_ == Tone)
-		{
-
-		}
-		else
+		if(displayMode_ == Frequency)
 		{
 			Color |= BLUE;
 			int_to_string(frequency, display);
 		}
+		else
+		{
+			/*
+			if(MaxValue < 900000)
+			{
+				charCopy(4, display, "----");
+			}
+			*/
+		}
 		RGB(Color);
-
 		tm1637Display(display);
 	}
 }

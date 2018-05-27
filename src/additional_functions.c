@@ -67,3 +67,11 @@ void USART_send_int(int * arr, uint32_t size)
 	}
 }
 
+void charCopy(unsigned int n, char new[], char orig[])
+{
+	for(unsigned int i=0; i<n; i++)
+	{
+		new[i]=orig[i];
+	}
+}
+

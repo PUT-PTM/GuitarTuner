@@ -4,14 +4,6 @@
 #include "FFT.h"
 #include "additional_functions.h"
 
-void charCopy(unsigned int n, char new[], char orig[])
-{
-	for(unsigned int i=0; i<n; i++)
-	{
-		new[i]=orig[i];
-	}
-}
-
 toneContainer tc;
 
 void TC_append(int Tone, char* disp)
@@ -85,7 +77,7 @@ void TC_init()
 	tc.size = 0;
 }
 
-void TC_fill()
+void TC_fill_432()
 {
 	TC_init(tc);
 
@@ -126,6 +118,48 @@ void TC_fill()
 	TC_append(1153.30, "d3  ");
 
 }
+
+void TC_fill_440()
+{
+	TC_init(tc);
+
+	TC_append( 196, "g   ");
+	TC_append( 207, "ab  ");
+	TC_append( 220, "a   ");
+	TC_append( 233, "b   ");
+	TC_append( 246, "h   ");
+
+	TC_append(261, "c1  ");
+	TC_append(277, "db1 ");
+	TC_append(293, "d1  ");
+	TC_append(311, "eb1 ");
+	TC_append(329, "e1  ");
+	TC_append(349, "f1  ");
+	TC_append(369, "gb1 ");
+	TC_append(392, "g1  ");
+	TC_append(415, "ab1 ");
+	TC_append(440, "a1  "); //432
+	TC_append(466, "b1  ");
+	TC_append(493, "h1  ");
+
+	TC_append(523, "c2  ");
+	TC_append(554, "db2 ");
+	TC_append(587, "d2  ");
+	TC_append(6122, "eb2 ");
+	TC_append(659, "e2  ");
+	TC_append(698, "f2  ");
+	TC_append(739, "gb2 ");
+	TC_append(783, "g2  ");
+	TC_append(830, "ab2 ");
+	TC_append(880, "a2  ");
+	TC_append(932, "b2  ");
+	TC_append(987, "h2  ");
+
+	TC_append(1046, "c3  ");
+	TC_append(1108, "db3 ");
+	TC_append(1174, "d3  ");
+}
+
 
 void TC_show()
 {
