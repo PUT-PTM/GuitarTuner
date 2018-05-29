@@ -37,12 +37,12 @@ Libraries are included in this project.
 
 | **STM32F4 DISCOVERY** | **TM1637 LED Display** | 
 | ----------------- | ------------------ |
-| 3.3V | VCC |
+| 3V | VCC |
 | GND | GND |
 | PC0 | CLK |
 | PC1 | DIO |
 | **STM32F4 DISCOVERY** | **Analog Microphone** |
-| 3.3V | VCC |
+| 3V | VCC |
 | GND | GND |
 | PA1 | AOUT |
 | **STM32F4 DISCOVERY** | **RGB LED** |
@@ -67,6 +67,7 @@ Connect STM32 to PC using USB cable. Simply compile the project using IDE.
 ### Known issues
 :x: **Use of `float` causes `Hard Fault`. Due to this `double` is used.**<br/>
 :x: **Use of `arm_cmplx_mag_f32` causes `Hard Fault`. Due to this `arm_cmplx_mag_squared_f32` is used.** <br/>
+:x: **Microphone failure: temporary loss of signal. `MICROPHONE ERROR CHECK` section `(in FFT.c)` used to detect microphone error. Skip this code in your project.** <br/>
 
 ## 7.Attributions
 ### External libraries

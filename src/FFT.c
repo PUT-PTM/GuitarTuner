@@ -13,11 +13,11 @@
 
 extern enum displayMode displayMode_;
 
-double Input[SAMPLES]; /*!< Input buffer is always 2 * FFT_SIZE */
+double Input[SAMPLES]; 				/*!< Input buffer is always 2 * FFT_SIZE */
 float32_t Input_f32[SAMPLES];
-double Output_Mag_f32[FFT_SIZE]; /*!< Output buffer is always FFT_SIZE */
+double Output_Mag_f32[FFT_SIZE]; 	/*!< Output buffer is always FFT_SIZE */
 
-double MaxValue; /*!< Max value in FTT result after calculation */
+double MaxValue; 					/*!< Max value in FTT result after calculation */
 uint32_t MaxIndex;
 
 uint16_t Count = 0;
@@ -45,16 +45,17 @@ void buffer_add(uint16_t elem)
 			Input_f32[i] = (float)Input[i];
 		}
 
-		int Fake_freq=0;
-		for (int i=0;i<SAMPLES;i+=2) { //SPRAWDZANIE CZY PRZEPELNILO
-			if (Input[i]<650) Fake_freq++;
-		}
-		if (Fake_freq>500) {
-			tm1637Display("err ");
-		}
+		int Fake_freq=0;						// MICROPHONE ERROR CHECK
+		for (int i=0;i<SAMPLES;i+=2) 			// SPRAWDZANIE CZY PRZEPELNILO
+		{ 										//
+			if (Input[i]<650) Fake_freq++;		//
+		}										//
+		if (Fake_freq>500)						//
+		{										//
+			tm1637Display("err ");				//
+		}										//
 		else
 		{
-
 			//FFT
 			arm_cfft_radix4_f32(&S, Input_f32);
 			Input_f32[0] = 0; //rubbish value in first cell
@@ -65,14 +66,12 @@ void buffer_add(uint16_t elem)
 
 			//Max value (frequency)
 			arm_max_f32(Output_Mag_f32, FFT_SIZE/2, &MaxValue, &MaxIndex);
-
 			frequency = (double)MaxIndex * (double)SAMPLE_FREQ / (double)FFT_SIZE ;
 
 			//display
 			char display[4] = {0};
-
 			uint16_t Color = 0;
-			TC_find(frequency,display, &Color);
+			TC_find(frequency, display, &Color);
 
 			if(displayMode_ == Frequency)
 			{
