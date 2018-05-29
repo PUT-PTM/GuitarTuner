@@ -6,7 +6,20 @@
 This program is used for tuning instruments like Guitar. LED Display shows frequency of sound and name of tone with direction for tune ('-' up, '+' down).
 
 ## 2.Description
-Tuner accuracy is 2Hz.
+### 2.1 Use of *GuitarTuner*
+
+### 2.2 Specification
+| Tuner Specification | |
+| --- | --- |
+| Accuracy | ±1Hz |
+| Sampling frequency | 2.4kHz |
+| FFT Size | 1024 complex samples | 
+| FFT base type | float32 |
+| **A** frequency <br/> (change only in code) | 432Hz <br/> 440Hz (default) |
+| Max tone frequency | 1200Hz |
+| Tune scale | g-D3 (European) <br/> G3-D6 (American) |
+| Tone names | European |
+
 
 ## 3.Tools
 ### Following hardware is required:
@@ -69,7 +82,7 @@ Connect STM32 to PC using USB cable. Simply compile the project using IDE.
 :x: **Use of `arm_cmplx_mag_f32` causes `Hard Fault`. Due to this `arm_cmplx_mag_squared_f32` is used.** <br/>
 :x: **Use of first argument of type `double` in `TC_append` causes `Hard Fault`. Due to this `int` is used.** <br/>
 :x: **Use of first argument of type `double` in `TC_find` causes `Hard Fault`. Due to this `int` is used.** <br/>
-:x: **Microphone failure: temporary loss of signal. `MICROPHONE ERROR CHECK` section `(in FFT.c)` used to detect microphone error. Skip this code in your project.** <br/>
+:x: **Microphone malfunction: temporary loss of signal. `MICROPHONE ERROR CHECK` section `(in FFT.c)` used to detect microphone error. Skip this code in your project.** <br/>
 
 ## 7.Attributions
 ### External libraries
