@@ -1,4 +1,4 @@
-# GuitarTuner :guitar:
+Ôªø# GuitarTuner :guitar:
 
 ## Work in progress
 
@@ -13,7 +13,7 @@ To change display mode use USER-Button.
 ### 2.2 Specification
 | Tuner Specification | |
 | --- | --- |
-| Accuracy | ±1Hz |
+| Accuracy | ¬±1Hz |
 | Sampling frequency | 2.4kHz |
 | FFT Size | 1024 complex samples | 
 | FFT base type | float32 |
@@ -102,11 +102,11 @@ Connect STM32 to PC using USB cable. Simply compile the project using IDE.
 
 ## 9. Credits
 
-| [Stanis≥aw Wasik](https://github.com/st-wasik) | [Stanis≥aw Gilewicz](https://github.com/forgut) |
+| [Stanis≈Çaw Wasik](https://github.com/st-wasik) | [Stanis≈Çaw Gilewicz](https://github.com/forgut) |
 | --- | --- | 
 
 
 | **The project was conducted during the Microprocessor Lab course held by the Institute of Control and Information Engineering, Poznan University of Technology.** |
 | :---: |
-| **Supervisor: Marek Kraft/Micha≥Ç Fularz/Tomasz MaÒkowski/Adam Bondyra** |
+| **Supervisor: Marek Kraft/Micha≈Ç Fularz/Tomasz Ma≈Ñkowski/Adam Bondyra** |
 
