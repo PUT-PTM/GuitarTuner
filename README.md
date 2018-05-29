@@ -68,6 +68,8 @@ Connect STM32 to PC using USB cable. Simply compile the project using IDE.
 :x: **Use of `float` causes `Hard Fault`. Due to this `double` is used.**<br/>
 :x: **Use of `arm_cmplx_mag_f32` causes `Hard Fault`. Due to this `arm_cmplx_mag_squared_f32` is used.** <br/>
 :x: **Microphone failure: temporary loss of signal. `MICROPHONE ERROR CHECK` section `(in FFT.c)` used to detect microphone error. Skip this code in your project.** <br/>
+:x: **Use of first argument of type `double` in `TC_append` causes `Hard Fault`. Due to this `int` is used.** <br/>
+:x: **Use of first argument of type `double` in `TC_find` causes `Hard Fault`. Due to this `int` is used.** <br/>
 
 ## 7.Attributions
 ### External libraries

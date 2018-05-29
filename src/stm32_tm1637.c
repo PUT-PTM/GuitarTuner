@@ -104,7 +104,7 @@ void tm1637Display(char arr[4])
 			case ' ': {digitArr[j]=0x00 ; break;}
 
 			case 'o': {digitArr[j]=0x5C; break;}
-			case 'n': {digitArr[j]=0x84; break;}
+			case 'n': {digitArr[j]=0x54; break;}
 			case 'r': {digitArr[j]=0x50; break;}
 			case 's': {digitArr[j]=0x6d; break;}
 

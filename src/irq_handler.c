@@ -23,7 +23,6 @@ void EXTI0_IRQHandler(void)
 	{
 		if(GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_0))
 		{
-			//for(int i=0;i<0x100FFF;i++);
 			wait_ms(100u); //debounce
 			if(displayMode_ == Tone)
 			{

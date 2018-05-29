@@ -46,13 +46,14 @@ void buffer_add(uint16_t elem)
 		}
 
 		int Fake_freq=0;						// MICROPHONE ERROR CHECK
-		for (int i=0;i<SAMPLES;i+=2) 			// SPRAWDZANIE CZY PRZEPELNILO
+		for (int i=0;i<SAMPLES;i+=2) 			//
 		{ 										//
 			if (Input[i]<650) Fake_freq++;		//
 		}										//
 		if (Fake_freq>500)						//
 		{										//
 			tm1637Display("err ");				//
+			RGB(0);								//
 		}										//
 		else
 		{
