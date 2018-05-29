@@ -2,10 +2,10 @@
 
 ## Work in progress
 
-## 1.Overview
+## 1. Overview
 This program is used for tuning instruments like Guitar. LED Display shows frequency of sound and name of tone with direction for tune ('-' up, '+' down).
 
-## 2.Description
+## 2. Description
 ### 2.1 Use of *GuitarTuner*
 
 ### 2.2 Specification
@@ -21,7 +21,7 @@ This program is used for tuning instruments like Guitar. LED Display shows frequ
 | Tone names | European |
 
 
-## 3.Tools
+## 3. Tools
 ### Following hardware is required:
 
 | STM32F4 DISCOVERY | TM1637 LED Display | Analog Microphone | RGB LED |
@@ -43,7 +43,7 @@ Libraries are included in this project.
 | [Hercules by HW-group.com](https://www.hw-group.com/products/hercules/index_en.html) | For USART Debug Only |
 | --- | --- |
 
-## 4.How to run
+## 4. How to run
 ### 4.1 Wire Connections 
 
 **Connect pins as follows:** <br/>
@@ -71,10 +71,10 @@ Libraries are included in this project.
 ### 4.2 IDE
 Use Eclipse for C/C++ Developers updated to STM32 Workbench.
 
-## 5.How to compile
+## 5. How to compile
 Connect STM32 to PC using USB cable. Simply compile the project using IDE.
 
-## 6.Future improvements
+## 6. Future improvements
 ### :warning: This project will no longer be supported
 
 ### Known issues
@@ -84,12 +84,12 @@ Connect STM32 to PC using USB cable. Simply compile the project using IDE.
 :x: **Use of first argument of type `double` in `TC_find` causes `Hard Fault`. Due to this `int` is used.** <br/>
 :x: **Microphone malfunction: temporary loss of signal. `MICROPHONE ERROR CHECK` section `(in FFT.c)` used to detect microphone error. Skip this code in your project.** <br/>
 
-## 7.Attributions
+## 7. Attributions
 ### External libraries
 | [CMSIS DSP Library](https://github.com/ARM-software/CMSIS) | [Library for TM1637](https://github.com/rogerdahl/stm32-tm1637) |
 | --- | --- |
 
-## 8.License
+## 8. License
 **GuitarTuner** is licensed under GNU GPL v3.0. Refer to [license.md](https://github.com/PUT-PTM/GuitarTuner/blob/master/license.md) for more. <br/>
 
 **[CMSIS DSP Library](https://github.com/ARM-software/CMSIS)** is licensed under [license](https://github.com/ARM-software/CMSIS/blob/master/CMSIS/DSP_Lib/license.txt).
@@ -97,7 +97,7 @@ Connect STM32 to PC using USB cable. Simply compile the project using IDE.
 
 **[Library for TM1637](https://github.com/rogerdahl/stm32-tm1637/)** is licensed under [MIT License](https://github.com/rogerdahl/stm32-tm1637/blob/master/LICENSE.md). <br/>
 
-## 9.Credits
+## 9. Credits
 
 | [Stanisław Wasik](https://github.com/st-wasik) | [Stanisław Gilewicz](https://github.com/forgut) |
 | --- | --- | 
