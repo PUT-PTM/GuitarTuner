@@ -8,6 +8,8 @@ This program is used for tuning instruments like Guitar. LED Display shows frequ
 ## 2. Description
 ### 2.1 Use of *GuitarTuner*
 
+To change display mode use USER-Button.
+
 ### 2.2 Specification
 | Tuner Specification | |
 | --- | --- |
@@ -16,9 +18,10 @@ This program is used for tuning instruments like Guitar. LED Display shows frequ
 | FFT Size | 1024 complex samples | 
 | FFT base type | float32 |
 | **A** frequency <br/> (change only in code) | 432Hz <br/> 440Hz (default) |
-| Max tone frequency | 1200Hz |
+| Maximum read <br/> tone frequency | 1200Hz |
 | Tune scale | g-D3 (European) <br/> G3-D6 (American) |
 | Tone names | European |
+| Display mode | Tone name <br/> Frequency |
 
 
 ## 3. Tools
@@ -99,11 +102,11 @@ Connect STM32 to PC using USB cable. Simply compile the project using IDE.
 
 ## 9. Credits
 
-| [Stanis≈Çaw Wasik](https://github.com/st-wasik) | [Stanis≈Çaw Gilewicz](https://github.com/forgut) |
+| [Stanis≥aw Wasik](https://github.com/st-wasik) | [Stanis≥aw Gilewicz](https://github.com/forgut) |
 | --- | --- | 
 
 
 | **The project was conducted during the Microprocessor Lab course held by the Institute of Control and Information Engineering, Poznan University of Technology.** |
 | :---: |
-| **Supervisor: Marek Kraft/Micha≈Ç Fularz/Tomasz Ma≈Ñkowski/Adam Bondyra** |
+| **Supervisor: Marek Kraft/Micha≥Ç Fularz/Tomasz MaÒkowski/Adam Bondyra** |
 
