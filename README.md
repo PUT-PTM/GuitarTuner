@@ -41,8 +41,8 @@ Libraries are included in this project.
 
 ### Following additional software is required:
 
-| [Hercules by HW-group.com](https://www.hw-group.com/products/hercules/index_en.html) | For USART Debug Only |
-| --- | --- |
+| [Hercules by HW-group.com](https://www.hw-group.com/products/hercules/index_en.html) - For USART Debug Only |
+| --- |
 
 ## 4. How to run
 ### 4.1 Wire Connections 
@@ -73,9 +73,9 @@ Libraries are included in this project.
 Use Eclipse for C/C++ Developers updated to STM32 Workbench.
 
 ## 5. How to compile
-:one: Create project using .cproject or .project (Eclipse (4.7.3a) - use *Open Project from File System*). <br/>
-:two: Connect STM32F4 DISCOVERY to PC using USB wire. <br/>
-:three: Simply compile the project using IDE (this project was compiled using GCC). <br/>
+:one: Create project using *.cproject* or *.project* (Eclipse 4.7.3a - use *Open Project from File System*). <br/>
+:two: Connect STM32F4 DISCOVERY to your PC using USB wire. <br/>
+:three: Simply compile the project using IDE (this project was compiled by GCC). <br/>
 :four: Upload compiled software to your μC. <br/>
 :five: Tune your musical instrument.
 
