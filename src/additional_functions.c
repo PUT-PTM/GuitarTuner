@@ -94,6 +94,14 @@ void display_test()
 	tm1637Display("   8");
 	RGB(RED | GREEN | BLUE);
 	wait_ms(INTRO_WAIT);
+
+	tm1637Display("    ");
+	RGB(0);
+	wait_ms(INTRO_WAIT);
+
+	tm1637Display("8888");
+	RGB(RED | GREEN | BLUE);
+	wait_ms(INTRO_WAIT);
 }
 
 void intro()
