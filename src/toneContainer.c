@@ -138,14 +138,14 @@ void TC_fill_440()
 	TC_append(369, "gb1 ");
 	TC_append(392, "g1  ");
 	TC_append(415, "ab1 ");
-	TC_append(440, "a1  "); //432
+	TC_append(440, "a1  "); //440
 	TC_append(466, "b1  ");
 	TC_append(493, "h1  ");
 
 	TC_append(523, "c2  ");
 	TC_append(554, "db2 ");
 	TC_append(587, "d2  ");
-	TC_append(6122, "eb2 ");
+	TC_append(612, "eb2 ");
 	TC_append(659, "e2  ");
 	TC_append(698, "f2  ");
 	TC_append(739, "gb2 ");

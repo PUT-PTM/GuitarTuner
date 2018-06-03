@@ -75,3 +75,38 @@ void charCopy(unsigned int n, char new[], char orig[])
 	}
 }
 
+#define INTRO_WAIT 500
+
+void display_test()
+{
+	tm1637Display("8   ");
+	RGB(RED);
+	wait_ms(INTRO_WAIT);
+
+	tm1637Display(" 8  ");
+	RGB(GREEN);
+	wait_ms(INTRO_WAIT);
+
+	tm1637Display("  8 ");
+	RGB(BLUE);
+	wait_ms(INTRO_WAIT);
+
+	tm1637Display("   8");
+	RGB(RED | GREEN | BLUE);
+	wait_ms(INTRO_WAIT);
+}
+
+void intro()
+{
+	display_test();
+
+	char display[] = "    GuitarTuner A440    "; //24chars + NULL
+	char *fst = &display[0];
+
+	for(int i=0;i<21;i++)
+	{
+		tm1637Display(fst);
+		wait_ms(INTRO_WAIT);
+		fst++;
+	}
+}

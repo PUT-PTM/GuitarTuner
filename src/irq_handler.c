@@ -42,6 +42,7 @@ void ADC_IRQHandler()
 	if(ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC) != RESET)
 	{
 		ADC_Output = ADC_GetConversionValue(ADC1);
+		buffer_add(ADC_Output);
 	}
 }
 
@@ -49,7 +50,7 @@ void TIM2_IRQHandler()
 {
 	if(TIM_GetITStatus(TIM2, TIM_IT_Update) != RESET)
 	{
-		buffer_add(ADC_Output);
+		ADC_SoftwareStartConv(ADC1);
 		TIM_ClearITPendingBit(TIM2, TIM_IT_Update);
 	}
 }

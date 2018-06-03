@@ -81,6 +81,7 @@ void buffer_add(uint16_t elem)
 			}
 			else
 			{
+				// check silence frequency ;)
 				/*
 				if(MaxValue < 900000)
 				{

@@ -103,6 +103,11 @@ void tm1637Display(char arr[4])
 			case '9': { digitArr[j]=0x6f; break;}
 			case ' ': {digitArr[j]=0x00 ; break;}
 
+			case 'u': {digitArr[j]=0x22; break;}
+			case 'i': {digitArr[j]=0x04; break;}
+			case 't': {digitArr[j]=0x78; break;}
+			case 'T': {digitArr[j]=0x07; break;}
+
 			case 'o': {digitArr[j]=0x5C; break;}
 			case 'n': {digitArr[j]=0x54; break;}
 			case 'r': {digitArr[j]=0x50; break;}

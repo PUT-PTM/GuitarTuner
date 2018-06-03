@@ -1,4 +1,4 @@
-﻿# GuitarTuner :guitar:
+﻿# *GuitarTuner*
 
 ## Work in progress
 
@@ -7,22 +7,20 @@ This program is used for tuning instruments like Guitar. LED Display shows frequ
 
 ## 2. Description
 ### 2.1 Use of *GuitarTuner*
-
-To change display mode use USER-Button.
+Power on *GuitarTuner* and play a sound. Display shows the tone name and direction for tune. If you see '+' you sound is too high. If you see '-' your sound is too low. You can also see the frequency of sound. To do it change display mode. To change display mode use **USER-Button**. For tune scale and other information see the table below. 
 
 ### 2.2 Specification
 | Tuner Specification | |
 | --- | --- |
 | Accuracy | ±1Hz |
 | Sampling frequency | 2.4kHz |
-| FFT Size | 1024 complex samples | 
+| FFT size | 1024 complex samples | 
 | FFT base type | float32 |
 | **A** frequency <br/> (change only in code) | 432Hz <br/> 440Hz (default) |
 | Maximum read <br/> tone frequency | 1200Hz |
-| Tune scale | g-D3 (European) <br/> G3-D6 (American) |
-| Tone names | European |
+| Tune scale | g-D3 (German) <br/> G3-D6 (American) |
+| Tone names | German |
 | Display mode | Tone name <br/> Frequency |
-
 
 ## 3. Tools
 ### Following hardware is required:

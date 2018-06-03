@@ -32,4 +32,6 @@ void RGB_Blue();
 
 void charCopy(unsigned int n, char new[], char orig[]);
 
+void intro();
+
 #endif /* ADDITIONAL_FUNCTIONS_H_ */

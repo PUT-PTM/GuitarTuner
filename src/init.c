@@ -151,7 +151,7 @@ void ADC_init()
 	ADC_InitTypeDef ADC_InitStructure;
 	ADC_InitStructure.ADC_Resolution = ADC_Resolution_12b;
 	ADC_InitStructure.ADC_ScanConvMode = DISABLE;
-	ADC_InitStructure.ADC_ContinuousConvMode = ENABLE;
+	ADC_InitStructure.ADC_ContinuousConvMode = DISABLE; //ENABLE
 	ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_T1_CC1;
 	ADC_InitStructure.ADC_ExternalTrigConvEdge = ADC_ExternalTrigConvEdge_None;
 	ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
@@ -161,10 +161,10 @@ void ADC_init()
 	ADC_RegularChannelConfig(ADC1, ADC_Channel_1, 1, ADC_SampleTime_84Cycles);
 
 	ADC_Cmd(ADC1, ENABLE);
-	ADC_SoftwareStartConv(ADC1);
+	//ADC_SoftwareStartConv(ADC1);
 }
 
-void TIM2_init()
+void TIM2_init() //2400Hz
 {
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
@@ -177,7 +177,7 @@ void TIM2_init()
 }
 
 // For wait_ms function
-void TIM3_init()
+void TIM3_init() //1000Hz
 {
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
@@ -207,6 +207,8 @@ void GuitarTuner_init()
 	EXTI_init(); //USER-BUTTON
 
 	TC_fill_440();
+
+	intro();
 
 	ADC_ITConfig(ADC1, ADC_IT_EOC, ENABLE);
 
