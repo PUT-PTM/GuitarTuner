@@ -5,11 +5,11 @@
 ## 1. Overview :eyes:
 This program is used for tuning instruments like Guitar. LED Display shows frequency of sound and name of tone with direction for tune ('-' up, '+' down).
 
-## 2. Description :books: :notes:
+## 2. Description :books:
 ### 2.1 Use of *GuitarTuner* :musical_score: :notes: :musical_note: :trumpet: :saxophone: :postal_horn: :guitar: :violin: :musical_keyboard: 
 Power on *GuitarTuner* and play a sound. Display shows the tone name and direction for tune. If you see '+' you sound is too high. If you see '-' your sound is too low. You can also see the frequency of sound. To do it change display mode. To change display mode use **USER-Button**. For tune scale and other information see the table below. 
 
-### 2.2 Specification
+### 2.2 Specification :pushpin:
 | Tuner Specification | |
 | --- | --- |
 | Accuracy | ±1Hz |
@@ -44,8 +44,8 @@ Libraries are included in this project.
 | [Hercules by HW-group.com](https://www.hw-group.com/products/hercules/index_en.html) - For USART Debug Only |
 | --- |
 
-## 4. How to run :electric_plug:
-### 4.1 Wire Connections 
+## 4. How to run :inbox_tray:
+### 4.1 Wire Connections :electric_plug:
 
 **Connect pins as follows:** <br/>
 
@@ -69,7 +69,7 @@ Libraries are included in this project.
 | TXD | PC11 |
 | RXD | PC10 |
 
-### 4.2 IDE
+### 4.2 IDE :computer:
 Use Eclipse for C/C++ Developers updated to STM32 Workbench.
 
 ## 5. How to compile :page_with_curl:
