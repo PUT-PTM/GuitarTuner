@@ -73,7 +73,11 @@ Libraries are included in this project.
 Use Eclipse for C/C++ Developers updated to STM32 Workbench.
 
 ## 5. How to compile
-Create project using .cproject or .project (Eclipse (4.7.3a) - use *Open Project from File System*). Connect STM32F4 DISCOVERY to PC using USB cable. Simply compile the project using IDE (this project was compiled by GCC).
+:one: Create project using .cproject or .project (Eclipse (4.7.3a) - use *Open Project from File System*). <br/>
+:two: Connect STM32F4 DISCOVERY to PC using USB wire. <br/>
+:three: Simply compile the project using IDE (this project was compiled using GCC). <br/>
+:four: Upload compiled software to your μC. <br/>
+:five: Tune your musical instrument.
 
 ## 6. Future improvements
 ### :warning: This project will no longer be supported
