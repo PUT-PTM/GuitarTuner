@@ -11,6 +11,7 @@
 #include "stm32_tm1637.h"
 #include "init.h"
 #include "toneContainer.h"
+#include "additional_functions.h"
 
 void GPIO_init(void)
 {
@@ -208,11 +209,13 @@ void GuitarTuner_init()
 
 	TC_fill_440();
 
+	TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE);
+
 	intro();
 
 	ADC_ITConfig(ADC1, ADC_IT_EOC, ENABLE);
 
 	TIM_ITConfig(TIM2, TIM_IT_Update, ENABLE);
 
-	TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE);
+
 }

@@ -25,7 +25,7 @@ void wait_ms(uint16_t ms)
 void RGB(uint16_t Color)
 {
 	GPIO_ResetBits(GPIOB, GPIO_Pin_8 | GPIO_Pin_7 | GPIO_Pin_5);
-	GPIO_SetBits(GPIOB, Color);
+	if(Color != 0) GPIO_SetBits(GPIOB, Color);
 }
 
 void RGB_Red()
@@ -75,7 +75,7 @@ void charCopy(unsigned int n, char new[], char orig[])
 	}
 }
 
-#define INTRO_WAIT 500
+#define INTRO_WAIT 250
 
 void display_test()
 {
@@ -102,13 +102,15 @@ void display_test()
 	tm1637Display("8888");
 	RGB(RED | GREEN | BLUE);
 	wait_ms(INTRO_WAIT);
+
+	RGB(0);
 }
 
 void intro()
 {
 	display_test();
 
-	char display[] = "    GuitarTuner A440    "; //24chars + NULL
+	char display[] = "    guitar7uner a440    "; //24chars + NULL
 	char *fst = &display[0];
 
 	for(int i=0;i<21;i++)

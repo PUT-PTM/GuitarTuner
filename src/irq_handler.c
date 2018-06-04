@@ -33,6 +33,7 @@ void EXTI0_IRQHandler(void)
 				displayMode_ = Tone;
 			}
 		}
+		wait_ms(250);
 		EXTI_ClearITPendingBit(EXTI_Line0);
 	}
 }

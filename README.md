@@ -16,9 +16,9 @@ Power on *GuitarTuner* and play a sound. Display shows the tone name and directi
 | Sampling frequency | 2.4kHz |
 | FFT size | 1024 complex samples | 
 | FFT base type | float32 |
-| **A** frequency <br/> (change only in code) | 432Hz <br/> 440Hz (default) |
+| **A** frequency <br/> (change only in code) | 432Hz (G3-D6 only) <br/> **440Hz (default)** |
 | Maximum read <br/> tone frequency | 1200Hz |
-| Tune scale | g-D3 (German) <br/> G3-D6 (American) |
+| Tune scale | <u>C</u>-D3 (German) <br/> C2-D6 (American) |
 | Tone names | German |
 | Display mode | Tone name <br/> Frequency |
 

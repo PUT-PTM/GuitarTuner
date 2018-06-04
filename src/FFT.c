@@ -81,13 +81,13 @@ void buffer_add(uint16_t elem)
 			}
 			else
 			{
-				// check silence frequency ;)
-				/*
-				if(MaxValue < 900000)
+
+				if(MaxValue < 3.0E8)
 				{
 					charCopy(4, display, "----");
+					Color = 0;
 				}
-				*/
+
 			}
 			RGB(Color);
 			tm1637Display(display);
