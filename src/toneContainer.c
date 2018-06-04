@@ -124,18 +124,18 @@ void TC_fill_440()
 {
 	TC_init(tc);
 
-	TC_append(65, "c   ");
-	TC_append(69, "db  ");
-	TC_append(73, "d   ");
-	TC_append(78, "eb  ");
-	TC_append(82, "e   ");
-	TC_append(87, "f   ");
-	TC_append(92, "gb  ");
-	TC_append(98, "g   ");
-	TC_append(103, "ab  ");
-	TC_append(110, "a   ");
-	TC_append(117, "b   ");
-	TC_append(123, "h   " );
+	TC_append(65, "c^  ");
+	TC_append(69, "db^ ");
+	TC_append(73, "d^  ");
+	TC_append(78, "eb^ ");
+	TC_append(82, "e^  ");
+	TC_append(87, "f^  ");
+	TC_append(92, "gb^ ");
+	TC_append(98, "g^  ");
+	TC_append(103, "ab^ ");
+	TC_append(110, "a^  ");
+	TC_append(117, "b^  ");
+	TC_append(123, "h^  " );
 
 	TC_append(130, "c   ");
 	TC_append(138, "db  ");

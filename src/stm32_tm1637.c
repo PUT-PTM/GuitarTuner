@@ -116,6 +116,7 @@ void tm1637Display(char arr[4])
 			case '-': {digitArr[j]=0x40; break;}
 			case '+': {digitArr[j]=0x46; break;}
 			case '_': {digitArr[j]=0x8; break;}
+			case '^': {digitArr[j]=0x1; break;}
 
 			default : {digitArr[j]=0x2B; break;}
 		}
