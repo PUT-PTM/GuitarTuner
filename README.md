@@ -1,6 +1,6 @@
 ﻿# *GuitarTuner*
 
-## Work in progress
+### :heavy_check_mark: Final version RELEASED at 5th June 2018
 
 ## 1. Overview :eyes:
 This program is used for tuning instruments like Guitar. LED Display shows frequency of sound and name of tone with direction for tune ('-' up, '+' down).
@@ -80,7 +80,8 @@ Use Eclipse for C/C++ Developers updated to STM32 Workbench.
 :five: Tune your musical instrument. 
 
 ## 6. Future improvements :seedling:
-### :warning: This project will no longer be supported
+### :heavy_check_mark: Final version RELEASED at 5th June 2018
+### :warning: This project will no longer be developed
 
 ### Known issues
 :x: **Use of `float` causes `Hard Fault`. Due to this `double` is used.**<br/>

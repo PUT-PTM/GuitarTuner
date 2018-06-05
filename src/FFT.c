@@ -48,7 +48,7 @@ void buffer_add(uint16_t elem)
 		int Fake_freq=0;						// MICROPHONE ERROR CHECK
 		for (int i=0;i<SAMPLES;i+=2) 			//
 		{ 										//
-			if (Input[i]<650) Fake_freq++;		//
+			if (Input[i]<650) Fake_freq++;		// (650) threshold value determined empirically
 		}										//
 		if (Fake_freq>500)						//
 		{										//
@@ -81,13 +81,12 @@ void buffer_add(uint16_t elem)
 			}
 			else
 			{
-
-				if(MaxValue < 3.0E8)
+				// if volume is not strong enough (or it is only a noise)
+				if(MaxValue < 3.0E8) // (3.0E8) threshold value determined empirically
 				{
 					charCopy(4, display, "----");
 					Color = 0;
 				}
-
 			}
 			RGB(Color);
 			tm1637Display(display);
